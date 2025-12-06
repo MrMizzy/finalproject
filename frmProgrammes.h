@@ -280,7 +280,7 @@ namespace finalproject {
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->label3);
 			this->Name = L"frmProgrammes";
-			this->Text = L"frmProgrammes";
+			this->Text = L"Programme Management";
 			this->panel1->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);

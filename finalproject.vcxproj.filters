@@ -39,6 +39,9 @@
     <ClCompile Include="frmEnroll.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="frmGrades.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="newfrmLogin.h">
@@ -63,6 +66,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="frmEnroll.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="frmGrades.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

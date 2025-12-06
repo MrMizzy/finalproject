@@ -351,7 +351,7 @@ namespace finalproject {
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
 			this->Name = L"frmCourses";
-			this->Text = L"frmCourses";
+			this->Text = L"Course Management";
 			this->panel1->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);

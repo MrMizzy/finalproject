@@ -28,6 +28,7 @@ namespace finalproject {
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Button^ btnFind;
 	private: System::Windows::Forms::TextBox^ txtFind;
+	private: System::Windows::Forms::Button^ btnEnroll;
 	private: System::Windows::Forms::Label^ label8;
 	public:
 		frmEnroll(User^ user)
@@ -109,6 +110,7 @@ namespace finalproject {
 			this->btnFind = (gcnew System::Windows::Forms::Button());
 			this->txtFind = (gcnew System::Windows::Forms::TextBox());
 			this->label8 = (gcnew System::Windows::Forms::Label());
+			this->btnEnroll = (gcnew System::Windows::Forms::Button());
 			this->panel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
@@ -212,12 +214,24 @@ namespace finalproject {
 			this->label8->TabIndex = 29;
 			this->label8->Text = L"Find Student with Email:";
 			// 
+			// btnEnroll
+			// 
+			this->btnEnroll->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
+			this->btnEnroll->Location = System::Drawing::Point(624, 97);
+			this->btnEnroll->Name = L"btnEnroll";
+			this->btnEnroll->Size = System::Drawing::Size(111, 32);
+			this->btnEnroll->TabIndex = 32;
+			this->btnEnroll->Text = L"Enroll";
+			this->btnEnroll->UseVisualStyleBackColor = true;
+			this->btnEnroll->Click += gcnew System::EventHandler(this, &frmEnroll::btnEnroll_Click);
+			// 
 			// frmEnroll
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::IndianRed;
 			this->ClientSize = System::Drawing::Size(762, 452);
+			this->Controls->Add(this->btnEnroll);
 			this->Controls->Add(this->btnFind);
 			this->Controls->Add(this->txtFind);
 			this->Controls->Add(this->label8);
@@ -330,6 +344,34 @@ namespace finalproject {
 					MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				return;
 			}
+		}
+		System::Void btnEnroll_Click(System::Object^ sender, System::EventArgs^ e) {
+			String^ courseName = enrollCombo->Text;
+			if (courseName->Length == 0) {
+				MessageBox::Show("Please select a course to enroll in", "Input Error",
+					MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+			if (sqlConn->State == ConnectionState::Open) {
+				sqlConn->Close();
+			}
+			if (studentID == 0) {
+				MessageBox::Show("Please find a student first", "Input Error",
+					MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+			sqlConn->ConnectionString = ConnectionStr;
+			sqlConn->Open();
+			sqlCmd->Connection = sqlConn;
+			sqlCmd->CommandText = "INSERT INTO enrollments(student_id, course_id, grade) " +
+				"VALUES(@uid, (SELECT c.course_id FROM course c WHERE c.course_name = @cname), NULL)";
+			sqlCmd->Parameters->AddWithValue("@uid", studentID);
+			sqlCmd->Parameters->AddWithValue("@cname", courseName);
+			sqlCmd->ExecuteNonQuery();
+			sqlCmd->Cancel();
+			sqlConn->Close();
+			MessageBox::Show("Enrollment Successful", "Enrollment");
+			LoadData();
 		}
 private: System::Void txtFind_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 }
