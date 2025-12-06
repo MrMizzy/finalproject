@@ -11,9 +11,9 @@ namespace finalproject {
 	using namespace MySql::Data::MySqlClient;
 
 	/// <summary>
-	/// Summary for newfrmRegister
+	/// Summary for frmRegFac
 	/// </summary>
-	public ref class newfrmRegister : public System::Windows::Forms::Form
+	public ref class frmRegFac : public System::Windows::Forms::Form
 	{
 		MySqlConnection^ sqlConn = gcnew MySqlConnection();
 		MySqlCommand^ sqlCmd = gcnew MySqlCommand();
@@ -28,15 +28,12 @@ namespace finalproject {
 	private: System::Windows::Forms::Label^ label6;
 	private: System::Windows::Forms::TextBox^ txtFName;
 	private: System::Windows::Forms::TextBox^ txtLName;
-
-
-
-
-
+	private: System::Windows::Forms::Label^ label7;
+	private: System::Windows::Forms::ComboBox^ deptCombo;
 	public:
 		User^ user = gcnew User();
 
-		newfrmRegister(void)
+		frmRegFac(void)
 		{
 			InitializeComponent();
 			//
@@ -47,7 +44,7 @@ namespace finalproject {
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		~newfrmRegister()
+		~frmRegFac()
 		{
 			if (components)
 			{
@@ -74,7 +71,7 @@ namespace finalproject {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(newfrmRegister::typeid));
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(frmRegFac::typeid));
 			this->txtEmail = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
@@ -89,6 +86,8 @@ namespace finalproject {
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->txtFName = (gcnew System::Windows::Forms::TextBox());
 			this->txtLName = (gcnew System::Windows::Forms::TextBox());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->deptCombo = (gcnew System::Windows::Forms::ComboBox());
 			this->panel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
@@ -139,7 +138,7 @@ namespace finalproject {
 			// label3
 			// 
 			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16, System::Drawing::FontStyle::Bold));
-			this->label3->Location = System::Drawing::Point(472, 46);
+			this->label3->Location = System::Drawing::Point(465, 9);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(136, 56);
 			this->label3->TabIndex = 4;
@@ -155,7 +154,7 @@ namespace finalproject {
 			this->btnRegister->TabIndex = 5;
 			this->btnRegister->Text = L"Register";
 			this->btnRegister->UseVisualStyleBackColor = true;
-			this->btnRegister->Click += gcnew System::EventHandler(this, &newfrmRegister::btnRegister_Click);
+			this->btnRegister->Click += gcnew System::EventHandler(this, &frmRegFac::btnRegister_Click);
 			// 
 			// btnCancel
 			// 
@@ -166,7 +165,7 @@ namespace finalproject {
 			this->btnCancel->TabIndex = 6;
 			this->btnCancel->Text = L"Cancel";
 			this->btnCancel->UseVisualStyleBackColor = true;
-			this->btnCancel->Click += gcnew System::EventHandler(this, &newfrmRegister::btnCancel_Click);
+			this->btnCancel->Click += gcnew System::EventHandler(this, &frmRegFac::btnCancel_Click);
 			// 
 			// panel1
 			// 
@@ -246,12 +245,37 @@ namespace finalproject {
 			this->txtLName->Size = System::Drawing::Size(369, 34);
 			this->txtLName->TabIndex = 11;
 			// 
-			// newfrmRegister
+			// label7
+			// 
+			this->label7->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->label7->Font = (gcnew System::Drawing::Font(L"Times New Roman", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label7->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->label7->Location = System::Drawing::Point(318, 346);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(141, 32);
+			this->label7->TabIndex = 12;
+			this->label7->Text = L"Department:";
+			this->label7->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			// 
+			// deptCombo
+			// 
+			this->deptCombo->FormattingEnabled = true;
+			this->deptCombo->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Admin", L"Faculty", L"Student" });
+			this->deptCombo->Location = System::Drawing::Point(470, 347);
+			this->deptCombo->Name = L"deptCombo";
+			this->deptCombo->Size = System::Drawing::Size(369, 24);
+			this->deptCombo->TabIndex = 13;
+			// 
+			// frmRegFac
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::IndianRed;
 			this->ClientSize = System::Drawing::Size(852, 502);
+			this->Controls->Add(this->deptCombo);
+			this->Controls->Add(this->label7);
 			this->Controls->Add(this->txtLName);
 			this->Controls->Add(this->txtFName);
 			this->Controls->Add(this->label6);
@@ -266,13 +290,12 @@ namespace finalproject {
 			this->Controls->Add(this->txtEmail);
 			this->MaximizeBox = false;
 			this->MinimizeBox = false;
-			this->Name = L"newfrmRegister";
-			this->Text = L"Register Admin";
+			this->Name = L"frmRegFac";
+			this->Text = L"Register Faculty";
 			this->panel1->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
-
 		}
 #pragma endregion
 	private: System::Void btnCancel_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -283,7 +306,8 @@ namespace finalproject {
 		String^ lname = txtLName->Text->Trim();
 		String^ email = txtEmail->Text->Trim();
 		String^ password = txtPassword->Text->Trim();
-		if (fname->Length == 0 || lname->Length == 0 || email->Length == 0 || password->Length == 0) {
+		String^ dept = deptCombo->SelectedItem->ToString();
+		if (fname->Length == 0 || lname->Length == 0 || email->Length == 0 || password->Length == 0 || dept->Length == 0) {
 			MessageBox::Show("Please fill all fields", "", MessageBoxButtons::OK);
 			return;
 		}
@@ -300,32 +324,24 @@ namespace finalproject {
 			sqlCmd->Parameters->AddWithValue("@lname", lname);
 			sqlCmd->Parameters->AddWithValue("@email", email);
 			sqlCmd->Parameters->AddWithValue("@pwd", password);
-			sqlCmd->Parameters->AddWithValue("@role", 0); // 0 for admin
+			sqlCmd->Parameters->AddWithValue("@role", 1); // 1 for faculty
 			if (sqlCmd->ExecuteNonQuery() == 1) {
 				sqlCmd->Parameters->Clear();
-				sqlCmd->CommandText = "SELECT u.id FROM user u WHERE u.email = @email";
+				sqlCmd->CommandText = "INSERT INTO faculty (user_id, department_id) VALUES ((SELECT u.id FROM user u WHERE u.email = @email), (SELECT d.department_id from department d WHERE d.dept_name = @dept))";
 				sqlCmd->Parameters->AddWithValue("@email", email);
-				sqlDR = sqlCmd->ExecuteReader();
-				if (sqlDR->Read()) {
-					sqlCmd->Parameters->Clear();
-					sqlCmd->CommandText = "INSERT INTO admin VALUES (@uid)";
-					sqlCmd->Parameters->AddWithValue("@uid", Convert::ToInt32(sqlDR["id"]));
-					if (sqlCmd->ExecuteNonQuery() == 1) {
-						sqlDR->Close();
-						sqlCmd->Parameters->Clear();
-						sqlConn->Close();
-					}
-					else {
-						MessageBox::Show("Registration Failed at Admin Table. Please try again", "", MessageBoxButtons::OK);
-						return;
-					}
+				sqlCmd->Parameters->AddWithValue("@dept", dept);
+				if (sqlCmd->ExecuteNonQuery() == 1) {
 					MessageBox::Show("Registration Successful", "", MessageBoxButtons::OK);
 					this->Close();
 				}
 				else {
-					MessageBox::Show("Registration Failed. Please try again", "", MessageBoxButtons::OK);
+					MessageBox::Show("Registration Failed at faculty table. Please try again", "", MessageBoxButtons::OK);
 					return;
 				}
+			}
+			else {
+				MessageBox::Show("Registration Failed. Please try again", "", MessageBoxButtons::OK);
+				return;
 			}
 		}
 		catch (Exception^ e) {
@@ -333,5 +349,5 @@ namespace finalproject {
 				"Data Base Error Connection", MessageBoxButtons::OK);
 		}
 	}
-};
+	};
 }

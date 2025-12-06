@@ -11,9 +11,9 @@ namespace finalproject {
 	using namespace MySql::Data::MySqlClient;
 
 	/// <summary>
-	/// Summary for newfrmRegister
+	/// Summary for frmRegStu
 	/// </summary>
-	public ref class newfrmRegister : public System::Windows::Forms::Form
+	public ref class frmRegStu : public System::Windows::Forms::Form
 	{
 		MySqlConnection^ sqlConn = gcnew MySqlConnection();
 		MySqlCommand^ sqlCmd = gcnew MySqlCommand();
@@ -28,26 +28,27 @@ namespace finalproject {
 	private: System::Windows::Forms::Label^ label6;
 	private: System::Windows::Forms::TextBox^ txtFName;
 	private: System::Windows::Forms::TextBox^ txtLName;
+	private: System::Windows::Forms::Label^ label7;
+	private: System::Windows::Forms::ComboBox^ progCombo;
 
-
-
-
-
+	private: System::Windows::Forms::Label^ label8;
+	private: System::Windows::Forms::TextBox^ txtYearGroup;
 	public:
 		User^ user = gcnew User();
 
-		newfrmRegister(void)
+		frmRegStu(void)
 		{
 			InitializeComponent();
 			//
 			//TODO: Add the constructor code here
 			//
+			LoadProg();
 		}
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		~newfrmRegister()
+		~frmRegStu()
 		{
 			if (components)
 			{
@@ -74,7 +75,7 @@ namespace finalproject {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(newfrmRegister::typeid));
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(frmRegStu::typeid));
 			this->txtEmail = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
@@ -89,6 +90,10 @@ namespace finalproject {
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->txtFName = (gcnew System::Windows::Forms::TextBox());
 			this->txtLName = (gcnew System::Windows::Forms::TextBox());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->progCombo = (gcnew System::Windows::Forms::ComboBox());
+			this->label8 = (gcnew System::Windows::Forms::Label());
+			this->txtYearGroup = (gcnew System::Windows::Forms::TextBox());
 			this->panel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
@@ -96,7 +101,7 @@ namespace finalproject {
 			// txtEmail
 			// 
 			this->txtEmail->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->txtEmail->Location = System::Drawing::Point(471, 228);
+			this->txtEmail->Location = System::Drawing::Point(471, 187);
 			this->txtEmail->Name = L"txtEmail";
 			this->txtEmail->Size = System::Drawing::Size(369, 34);
 			this->txtEmail->TabIndex = 0;
@@ -108,7 +113,7 @@ namespace finalproject {
 			this->label1->Font = (gcnew System::Drawing::Font(L"Times New Roman", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label1->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->label1->Location = System::Drawing::Point(318, 231);
+			this->label1->Location = System::Drawing::Point(318, 190);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(108, 32);
 			this->label1->TabIndex = 1;
@@ -120,7 +125,7 @@ namespace finalproject {
 			this->label2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->label2->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14));
-			this->label2->Location = System::Drawing::Point(318, 290);
+			this->label2->Location = System::Drawing::Point(318, 249);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(113, 32);
 			this->label2->TabIndex = 3;
@@ -130,7 +135,7 @@ namespace finalproject {
 			// txtPassword
 			// 
 			this->txtPassword->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->txtPassword->Location = System::Drawing::Point(471, 290);
+			this->txtPassword->Location = System::Drawing::Point(471, 249);
 			this->txtPassword->Name = L"txtPassword";
 			this->txtPassword->PasswordChar = '*';
 			this->txtPassword->Size = System::Drawing::Size(369, 34);
@@ -139,7 +144,7 @@ namespace finalproject {
 			// label3
 			// 
 			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16, System::Drawing::FontStyle::Bold));
-			this->label3->Location = System::Drawing::Point(472, 46);
+			this->label3->Location = System::Drawing::Point(465, 9);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(136, 56);
 			this->label3->TabIndex = 4;
@@ -155,7 +160,7 @@ namespace finalproject {
 			this->btnRegister->TabIndex = 5;
 			this->btnRegister->Text = L"Register";
 			this->btnRegister->UseVisualStyleBackColor = true;
-			this->btnRegister->Click += gcnew System::EventHandler(this, &newfrmRegister::btnRegister_Click);
+			this->btnRegister->Click += gcnew System::EventHandler(this, &frmRegStu::btnRegister_Click);
 			// 
 			// btnCancel
 			// 
@@ -166,7 +171,7 @@ namespace finalproject {
 			this->btnCancel->TabIndex = 6;
 			this->btnCancel->Text = L"Cancel";
 			this->btnCancel->UseVisualStyleBackColor = true;
-			this->btnCancel->Click += gcnew System::EventHandler(this, &newfrmRegister::btnCancel_Click);
+			this->btnCancel->Click += gcnew System::EventHandler(this, &frmRegStu::btnCancel_Click);
 			// 
 			// panel1
 			// 
@@ -209,7 +214,7 @@ namespace finalproject {
 			this->label5->Font = (gcnew System::Drawing::Font(L"Times New Roman", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label5->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->label5->Location = System::Drawing::Point(318, 118);
+			this->label5->Location = System::Drawing::Point(318, 77);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(130, 32);
 			this->label5->TabIndex = 8;
@@ -223,7 +228,7 @@ namespace finalproject {
 			this->label6->Font = (gcnew System::Drawing::Font(L"Times New Roman", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label6->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->label6->Location = System::Drawing::Point(318, 172);
+			this->label6->Location = System::Drawing::Point(318, 131);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(130, 32);
 			this->label6->TabIndex = 9;
@@ -233,7 +238,7 @@ namespace finalproject {
 			// txtFName
 			// 
 			this->txtFName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->txtFName->Location = System::Drawing::Point(471, 115);
+			this->txtFName->Location = System::Drawing::Point(471, 74);
 			this->txtFName->Name = L"txtFName";
 			this->txtFName->Size = System::Drawing::Size(369, 34);
 			this->txtFName->TabIndex = 10;
@@ -241,17 +246,65 @@ namespace finalproject {
 			// txtLName
 			// 
 			this->txtLName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->txtLName->Location = System::Drawing::Point(471, 170);
+			this->txtLName->Location = System::Drawing::Point(471, 129);
 			this->txtLName->Name = L"txtLName";
 			this->txtLName->Size = System::Drawing::Size(369, 34);
 			this->txtLName->TabIndex = 11;
 			// 
-			// newfrmRegister
+			// label7
+			// 
+			this->label7->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->label7->Font = (gcnew System::Drawing::Font(L"Times New Roman", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label7->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->label7->Location = System::Drawing::Point(318, 305);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(141, 32);
+			this->label7->TabIndex = 12;
+			this->label7->Text = L"Programme:";
+			this->label7->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			// 
+			// progCombo
+			// 
+			this->progCombo->FormattingEnabled = true;
+			this->progCombo->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Admin", L"Faculty", L"Student" });
+			this->progCombo->Location = System::Drawing::Point(470, 306);
+			this->progCombo->Name = L"progCombo";
+			this->progCombo->Size = System::Drawing::Size(369, 24);
+			this->progCombo->TabIndex = 13;
+			// 
+			// label8
+			// 
+			this->label8->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->label8->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14));
+			this->label8->Location = System::Drawing::Point(317, 353);
+			this->label8->Name = L"label8";
+			this->label8->Size = System::Drawing::Size(113, 32);
+			this->label8->TabIndex = 15;
+			this->label8->Text = L"Year Group:";
+			this->label8->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			// 
+			// txtYearGroup
+			// 
+			this->txtYearGroup->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			this->txtYearGroup->Location = System::Drawing::Point(470, 353);
+			this->txtYearGroup->Name = L"txtYearGroup";
+			this->txtYearGroup->PasswordChar = '*';
+			this->txtYearGroup->Size = System::Drawing::Size(369, 34);
+			this->txtYearGroup->TabIndex = 14;
+			// 
+			// frmRegStu
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::IndianRed;
 			this->ClientSize = System::Drawing::Size(852, 502);
+			this->Controls->Add(this->label8);
+			this->Controls->Add(this->txtYearGroup);
+			this->Controls->Add(this->progCombo);
+			this->Controls->Add(this->label7);
 			this->Controls->Add(this->txtLName);
 			this->Controls->Add(this->txtFName);
 			this->Controls->Add(this->label6);
@@ -266,8 +319,8 @@ namespace finalproject {
 			this->Controls->Add(this->txtEmail);
 			this->MaximizeBox = false;
 			this->MinimizeBox = false;
-			this->Name = L"newfrmRegister";
-			this->Text = L"Register Admin";
+			this->Name = L"frmRegStu";
+			this->Text = L"Register Student";
 			this->panel1->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
@@ -283,11 +336,16 @@ namespace finalproject {
 		String^ lname = txtLName->Text->Trim();
 		String^ email = txtEmail->Text->Trim();
 		String^ password = txtPassword->Text->Trim();
-		if (fname->Length == 0 || lname->Length == 0 || email->Length == 0 || password->Length == 0) {
+		String^ prog = progCombo->SelectedItem->ToString();
+		String^ yearGroup = txtYearGroup->Text->Trim();
+		if (fname->Length == 0 || lname->Length == 0 || email->Length == 0 || password->Length == 0 || prog->Length == 0) {
 			MessageBox::Show("Please fill all fields", "", MessageBoxButtons::OK);
 			return;
 		}
-
+		if (yearGroup->Length != 4) {
+			MessageBox::Show("Please enter a valid year group", "", MessageBoxButtons::OK);
+			return;
+		}
 		try {
 			if (sqlConn->State == ConnectionState::Open) {
 				sqlConn->Close();
@@ -300,32 +358,25 @@ namespace finalproject {
 			sqlCmd->Parameters->AddWithValue("@lname", lname);
 			sqlCmd->Parameters->AddWithValue("@email", email);
 			sqlCmd->Parameters->AddWithValue("@pwd", password);
-			sqlCmd->Parameters->AddWithValue("@role", 0); // 0 for admin
+			sqlCmd->Parameters->AddWithValue("@role", 2); // 2 for student
 			if (sqlCmd->ExecuteNonQuery() == 1) {
 				sqlCmd->Parameters->Clear();
-				sqlCmd->CommandText = "SELECT u.id FROM user u WHERE u.email = @email";
+				sqlCmd->CommandText = "INSERT INTO student (user_id, programme_id, yearGroup) VALUES ((SELECT u.id FROM user u WHERE u.email = @email), (SELECT p.programme_id from programme p WHERE p.prgm_name = @prog), @yearGroup)";
 				sqlCmd->Parameters->AddWithValue("@email", email);
-				sqlDR = sqlCmd->ExecuteReader();
-				if (sqlDR->Read()) {
-					sqlCmd->Parameters->Clear();
-					sqlCmd->CommandText = "INSERT INTO admin VALUES (@uid)";
-					sqlCmd->Parameters->AddWithValue("@uid", Convert::ToInt32(sqlDR["id"]));
-					if (sqlCmd->ExecuteNonQuery() == 1) {
-						sqlDR->Close();
-						sqlCmd->Parameters->Clear();
-						sqlConn->Close();
-					}
-					else {
-						MessageBox::Show("Registration Failed at Admin Table. Please try again", "", MessageBoxButtons::OK);
-						return;
-					}
+				sqlCmd->Parameters->AddWithValue("@prog", prog);
+				sqlCmd->Parameters->AddWithValue("@yearGroup", yearGroup);
+				if (sqlCmd->ExecuteNonQuery() == 1) {
 					MessageBox::Show("Registration Successful", "", MessageBoxButtons::OK);
 					this->Close();
 				}
 				else {
-					MessageBox::Show("Registration Failed. Please try again", "", MessageBoxButtons::OK);
+					MessageBox::Show("Registration Failed at student table. Please try again", "", MessageBoxButtons::OK);
 					return;
 				}
+			}
+			else {
+				MessageBox::Show("Registration Failed. Please try again", "", MessageBoxButtons::OK);
+				return;
 			}
 		}
 		catch (Exception^ e) {
@@ -333,5 +384,20 @@ namespace finalproject {
 				"Data Base Error Connection", MessageBoxButtons::OK);
 		}
 	}
-};
+		   System::Void LoadProg() {
+			   if (sqlConn->State == ConnectionState::Open) {
+				   sqlConn->Close();
+			   }
+			   sqlConn->ConnectionString = ConnectionStr;
+			   sqlConn->Open();
+			   sqlCmd->Connection = sqlConn;
+			   sqlCmd->CommandText = "SELECT prgm_name FROM programme";
+			   sqlDR = sqlCmd->ExecuteReader();
+			   while (sqlDR->Read()) {
+				   progCombo->Items->Add(sqlDR["prgm_name"]->ToString());
+			   }
+			   sqlDR->Close();
+			   sqlConn->Close();
+		   }
+	};
 }

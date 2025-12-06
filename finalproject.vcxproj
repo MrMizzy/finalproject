@@ -113,15 +113,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="facMain.cpp" />
     <ClCompile Include="frmCourses.cpp" />
     <ClCompile Include="frmDepartment.cpp" />
     <ClCompile Include="frmEnroll.cpp" />
     <ClCompile Include="frmGrades.cpp" />
     <ClCompile Include="frmMain.cpp" />
     <ClCompile Include="frmProgrammes.cpp" />
+    <ClCompile Include="frmRegFac.cpp" />
+    <ClCompile Include="frmRegStu.cpp" />
     <ClCompile Include="mainProgram.cpp" />
     <ClCompile Include="newfrmLogin.cpp" />
     <ClCompile Include="newfrmRegister.cpp" />
+    <ClCompile Include="stuMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MySql.Data">
@@ -134,6 +138,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="facMain.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="frmCourses.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -152,23 +159,47 @@
     <ClInclude Include="frmProgrammes.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="frmRegFac.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="frmRegStu.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="newfrmLogin.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="newfrmRegister.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="stuMain.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="user.h" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="facMain.resx">
+      <DependentUpon>facMain.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCourses.resx">
       <DependentUpon>frmCourses.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmEnroll.resx">
       <DependentUpon>frmEnroll.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmGrades.resx">
+      <DependentUpon>frmGrades.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProgrammes.resx">
+      <DependentUpon>frmProgrammes.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRegFac.resx">
+      <DependentUpon>frmRegFac.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRegStu.resx">
+      <DependentUpon>frmRegStu.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="newfrmLogin.resx">
       <DependentUpon>newfrmLogin.h</DependentUpon>
