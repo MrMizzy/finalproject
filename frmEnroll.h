@@ -85,7 +85,7 @@ namespace finalproject {
 					this->Close();
 				}
 				LoadPossibleEnrolls();
-				LoadData();
+				LoadStudentData();
 			}
 		}
 	protected:
@@ -289,6 +289,23 @@ namespace finalproject {
 		}
 		System::Void btnCancel_Click(System::Object^ sender, System::EventArgs^ e) {
 			this->Close();
+		}
+		void LoadStudentData() {
+			if (sqlConn->State == ConnectionState::Open) {
+				sqlConn->Close();
+			}
+			sqlConn->ConnectionString = ConnectionStr;
+			sqlConn->Open();
+
+			DataTable^ dt = gcnew DataTable();
+			MySqlDataAdapter^ da = gcnew MySqlDataAdapter("SELECT u.f_name, u.l_name, u.email FROM user u JOIN student s ON u.uid = s.student_id", sqlConn);
+			da->Fill(dt);
+
+			dataGridView1->DataSource = dt;
+			dataGridView1->Columns[0]->Width = 100;
+			dataGridView1->Columns[1]->Width = 100;
+			dataGridView1->Columns[2]->Width = 200;
+			sqlConn->Close();
 		}
 		System::Void LoadPossibleEnrolls() {
 			if (sqlConn->State == ConnectionState::Open) {

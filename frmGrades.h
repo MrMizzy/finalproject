@@ -408,6 +408,7 @@ namespace finalproject {
 			   sqlCmd->CommandText = "SELECT c.course_name FROM enrollments e JOIN course c ON e.course_id = c.course_id WHERE e.student_id = @sid";
 			   sqlCmd->Parameters->AddWithValue("@sid", sid);
 			   sqlDR = sqlCmd->ExecuteReader();
+			   courseCombo->Items->Clear();
 			   while (sqlDR->Read()) {
 				   String^ courseName = sqlDR["course_name"]->ToString();
 				   courseCombo->Items->Add(courseName);

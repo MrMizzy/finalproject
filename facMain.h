@@ -1,13 +1,7 @@
 #pragma once
 #include "user.h"
-#include "frmDepartment.h"
-#include "frmProgrammes.h"
-#include "frmCourses.h"
-#include "newfrmRegister.h"
-#include "frmEnroll.h"
-#include "frmRegFac.h"
-#include "frmRegStu.h"
 #include "frmGrades.h"
+#include "frmAssign.h"
 namespace finalproject {
 
 	using namespace System;
@@ -47,7 +41,8 @@ namespace finalproject {
 	private: System::Windows::Forms::MenuStrip^ menuStrip1;
 	private: System::Windows::Forms::ToolStripMenuItem^ facultyToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ enterGradesToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^ generateReportToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ viewAssignedToolStripMenuItem;
+
 	private: System::Windows::Forms::ToolStrip^ toolStrip1;
 	private: System::Windows::Forms::ToolStripLabel^ toolStripLabel1;
 	private:
@@ -66,7 +61,7 @@ namespace finalproject {
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->facultyToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->enterGradesToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->generateReportToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->viewAssignedToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStrip1 = (gcnew System::Windows::Forms::ToolStrip());
 			this->toolStripLabel1 = (gcnew System::Windows::Forms::ToolStripLabel());
 			this->menuStrip1->SuspendLayout();
@@ -87,7 +82,7 @@ namespace finalproject {
 			// 
 			this->facultyToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
 				this->enterGradesToolStripMenuItem,
-					this->generateReportToolStripMenuItem
+					this->viewAssignedToolStripMenuItem
 			});
 			this->facultyToolStripMenuItem->Name = L"facultyToolStripMenuItem";
 			this->facultyToolStripMenuItem->Size = System::Drawing::Size(68, 24);
@@ -96,15 +91,16 @@ namespace finalproject {
 			// enterGradesToolStripMenuItem
 			// 
 			this->enterGradesToolStripMenuItem->Name = L"enterGradesToolStripMenuItem";
-			this->enterGradesToolStripMenuItem->Size = System::Drawing::Size(224, 26);
+			this->enterGradesToolStripMenuItem->Size = System::Drawing::Size(243, 26);
 			this->enterGradesToolStripMenuItem->Text = L"Enter Grades";
 			this->enterGradesToolStripMenuItem->Click += gcnew System::EventHandler(this, &facMain::enterGradesToolStripMenuItem_Click);
 			// 
-			// generateReportToolStripMenuItem
+			// viewAssignedToolStripMenuItem
 			// 
-			this->generateReportToolStripMenuItem->Name = L"generateReportToolStripMenuItem";
-			this->generateReportToolStripMenuItem->Size = System::Drawing::Size(224, 26);
-			this->generateReportToolStripMenuItem->Text = L"Generate Report";
+			this->viewAssignedToolStripMenuItem->Name = L"viewAssignedToolStripMenuItem";
+			this->viewAssignedToolStripMenuItem->Size = System::Drawing::Size(243, 26);
+			this->viewAssignedToolStripMenuItem->Text = L"View Assigned Courses";
+			this->viewAssignedToolStripMenuItem->Click += gcnew System::EventHandler(this, &facMain::generateReportToolStripMenuItem_Click);
 			// 
 			// toolStrip1
 			// 
@@ -143,10 +139,6 @@ namespace finalproject {
 
 		}
 #pragma endregion
-	private: System::Void registerToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-		finalproject::frmEnroll frmEnrl(currentUser);
-		frmEnrl.ShowDialog();
-	}
 	private: System::Void facMain_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
 		// Optional Confirmation
 		if (MessageBox::Show("Do you want to exit?", "Confirm Exit", MessageBoxButtons::YesNo,
@@ -164,6 +156,10 @@ namespace finalproject {
 	private: System::Void enterGradesToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 		finalproject::frmGrades frmGrd;
 		frmGrd.ShowDialog();
+	}
+	private: System::Void generateReportToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+		finalproject::frmAssign frmAsg(currentUser);
+		frmAsg.ShowDialog();
 	}
 };
 }

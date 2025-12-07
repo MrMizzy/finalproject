@@ -8,6 +8,7 @@
 #include "frmRegFac.h"
 #include "frmRegStu.h"
 #include "frmGrades.h"
+#include "frmAssign.h"
 namespace finalproject {
 
 	using namespace System;
@@ -50,7 +51,8 @@ namespace finalproject {
 	private: System::Windows::Forms::ToolStripMenuItem^ viewCourseToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ facultyToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ enterGradesToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^ generateReportToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ manageCourseToolStripMenuItem;
+
 	private: System::Windows::Forms::ToolStripMenuItem^ administrationToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ registerFacultyToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ registerStudentToolStripMenuItem;
@@ -80,17 +82,17 @@ namespace finalproject {
 			this->viewCourseToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->facultyToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->enterGradesToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->generateReportToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->manageCourseToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->administrationToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->registerFacultyToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->registerStudentToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->registerAdminToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->systemSetupToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->addDepartmentToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->addCourseToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->addCourseToolStripMenuItem1 = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStrip1 = (gcnew System::Windows::Forms::ToolStrip());
 			this->toolStripLabel1 = (gcnew System::Windows::Forms::ToolStripLabel());
-			this->registerAdminToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->menuStrip1->SuspendLayout();
 			this->toolStrip1->SuspendLayout();
 			this->SuspendLayout();
@@ -121,21 +123,21 @@ namespace finalproject {
 			// registerToolStripMenuItem
 			// 
 			this->registerToolStripMenuItem->Name = L"registerToolStripMenuItem";
-			this->registerToolStripMenuItem->Size = System::Drawing::Size(195, 26);
+			this->registerToolStripMenuItem->Size = System::Drawing::Size(220, 26);
 			this->registerToolStripMenuItem->Text = L"Register Course";
 			this->registerToolStripMenuItem->Click += gcnew System::EventHandler(this, &frmMain::registerToolStripMenuItem_Click);
 			// 
 			// viewCourseToolStripMenuItem
 			// 
 			this->viewCourseToolStripMenuItem->Name = L"viewCourseToolStripMenuItem";
-			this->viewCourseToolStripMenuItem->Size = System::Drawing::Size(195, 26);
-			this->viewCourseToolStripMenuItem->Text = L"View Grades";
+			this->viewCourseToolStripMenuItem->Size = System::Drawing::Size(220, 26);
+			this->viewCourseToolStripMenuItem->Text = L"Generate Transcript";
 			// 
 			// facultyToolStripMenuItem
 			// 
 			this->facultyToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
 				this->enterGradesToolStripMenuItem,
-					this->generateReportToolStripMenuItem
+					this->manageCourseToolStripMenuItem
 			});
 			this->facultyToolStripMenuItem->Name = L"facultyToolStripMenuItem";
 			this->facultyToolStripMenuItem->Size = System::Drawing::Size(68, 24);
@@ -144,14 +146,16 @@ namespace finalproject {
 			// enterGradesToolStripMenuItem
 			// 
 			this->enterGradesToolStripMenuItem->Name = L"enterGradesToolStripMenuItem";
-			this->enterGradesToolStripMenuItem->Size = System::Drawing::Size(201, 26);
+			this->enterGradesToolStripMenuItem->Size = System::Drawing::Size(282, 26);
 			this->enterGradesToolStripMenuItem->Text = L"Enter Grades";
+			this->enterGradesToolStripMenuItem->Click += gcnew System::EventHandler(this, &frmMain::enterGradesToolStripMenuItem_Click);
 			// 
-			// generateReportToolStripMenuItem
+			// manageCourseToolStripMenuItem
 			// 
-			this->generateReportToolStripMenuItem->Name = L"generateReportToolStripMenuItem";
-			this->generateReportToolStripMenuItem->Size = System::Drawing::Size(201, 26);
-			this->generateReportToolStripMenuItem->Text = L"Generate Report";
+			this->manageCourseToolStripMenuItem->Name = L"manageCourseToolStripMenuItem";
+			this->manageCourseToolStripMenuItem->Size = System::Drawing::Size(282, 26);
+			this->manageCourseToolStripMenuItem->Text = L"Manage Course Assignments";
+			this->manageCourseToolStripMenuItem->Click += gcnew System::EventHandler(this, &frmMain::generateReportToolStripMenuItem_Click);
 			// 
 			// administrationToolStripMenuItem
 			// 
@@ -176,6 +180,13 @@ namespace finalproject {
 			this->registerStudentToolStripMenuItem->Size = System::Drawing::Size(224, 26);
 			this->registerStudentToolStripMenuItem->Text = L"Register Student";
 			this->registerStudentToolStripMenuItem->Click += gcnew System::EventHandler(this, &frmMain::registerStudentToolStripMenuItem_Click);
+			// 
+			// registerAdminToolStripMenuItem
+			// 
+			this->registerAdminToolStripMenuItem->Name = L"registerAdminToolStripMenuItem";
+			this->registerAdminToolStripMenuItem->Size = System::Drawing::Size(224, 26);
+			this->registerAdminToolStripMenuItem->Text = L"Register Admin";
+			this->registerAdminToolStripMenuItem->Click += gcnew System::EventHandler(this, &frmMain::registerAdminToolStripMenuItem_Click);
 			// 
 			// systemSetupToolStripMenuItem
 			// 
@@ -223,13 +234,6 @@ namespace finalproject {
 			this->toolStripLabel1->Name = L"toolStripLabel1";
 			this->toolStripLabel1->Size = System::Drawing::Size(0, 22);
 			this->toolStripLabel1->Click += gcnew System::EventHandler(this, &frmMain::toolStripLabel1_Click);
-			// 
-			// registerAdminToolStripMenuItem
-			// 
-			this->registerAdminToolStripMenuItem->Name = L"registerAdminToolStripMenuItem";
-			this->registerAdminToolStripMenuItem->Size = System::Drawing::Size(224, 26);
-			this->registerAdminToolStripMenuItem->Text = L"Register Admin";
-			this->registerAdminToolStripMenuItem->Click += gcnew System::EventHandler(this, &frmMain::registerAdminToolStripMenuItem_Click);
 			// 
 			// frmMain
 			// 
@@ -298,6 +302,14 @@ namespace finalproject {
 	private: System::Void registerAdminToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 		finalproject::newfrmRegister frmReg;
 		frmReg.ShowDialog();
+	}
+	private: System::Void generateReportToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+		finalproject::frmAssign frmAssign(currentUser);
+		frmAssign.ShowDialog();
+	}
+	private: System::Void enterGradesToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+		finalproject::frmGrades frmGrd;
+		frmGrd.ShowDialog();
 	}
 };
 }

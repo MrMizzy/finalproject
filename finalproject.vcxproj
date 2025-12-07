@@ -184,6 +184,9 @@
     <EmbeddedResource Include="facMain.resx">
       <DependentUpon>facMain.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAssign.resx">
+      <DependentUpon>frmAssign.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCourses.resx">
       <DependentUpon>frmCourses.h</DependentUpon>
     </EmbeddedResource>
