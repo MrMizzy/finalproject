@@ -20,7 +20,7 @@ namespace finalproject {
 		MySqlDataAdapter^ sqlDA = gcnew MySqlDataAdapter();
 		MySqlDataReader^ sqlDR;
 		DataTable^ sqlDT = gcnew DataTable();
-		String^ ConnectionStr = "datasource = localhost; port=3306;username=root; password=''; database=ashesimis";
+		String^ ConnectionStr = "datasource = localhost; port=3306;username=root; password=''; database=ashesi_arms";
 		int globalCourseID = 0;
 	public:
 		frmCourses(void)

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "user.h"
 using namespace System::IO;
 
@@ -22,7 +22,7 @@ namespace finalproject {
 		MySqlDataAdapter^ sqlDA = gcnew MySqlDataAdapter();
 		MySqlDataReader^ sqlDR;
 		DataTable^ sqlDT = gcnew DataTable();
-		String^ ConnectionStr = "datasource = localhost; port=3306;username=root; password=''; database=ashesimis";
+		String^ ConnectionStr = "datasource = localhost; port=3306;username=root; password=''; database=ashesi_arms";
 		User^ currentUser = nullptr;
 		int studentID = 0;
 		String^ studentName = "";
@@ -112,9 +112,9 @@ namespace finalproject {
 			this->btnDownload = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
-			// 
+			//Â 
 			// label1
-			// 
+			//Â 
 			this->label1->AutoSize = true;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Times New Roman", 16, System::Drawing::FontStyle::Bold));
 			this->label1->Location = System::Drawing::Point(300, 9);
@@ -123,9 +123,9 @@ namespace finalproject {
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"Transcript";
 			this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			// 
+			//Â 
 			// dataGridView1
-			// 
+			//Â 
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->dataGridView1->Location = System::Drawing::Point(35, 172);
 			this->dataGridView1->Name = L"dataGridView1";
@@ -133,9 +133,9 @@ namespace finalproject {
 			this->dataGridView1->RowTemplate->Height = 24;
 			this->dataGridView1->Size = System::Drawing::Size(696, 250);
 			this->dataGridView1->TabIndex = 1;
-			// 
+			//Â 
 			// btnCancel
-			// 
+			//Â 
 			this->btnCancel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
 			this->btnCancel->Location = System::Drawing::Point(620, 439);
 			this->btnCancel->Name = L"btnCancel";
@@ -144,9 +144,9 @@ namespace finalproject {
 			this->btnCancel->Text = L"Close";
 			this->btnCancel->UseVisualStyleBackColor = true;
 			this->btnCancel->Click += gcnew System::EventHandler(this, &frmTranscript::btnCancel_Click);
-			// 
+			//Â 
 			// lblGPA
-			// 
+			//Â 
 			this->lblGPA->AutoSize = true;
 			this->lblGPA->Font = (gcnew System::Drawing::Font(L"Times New Roman", 13.8F));
 			this->lblGPA->Location = System::Drawing::Point(35, 137);
@@ -154,9 +154,9 @@ namespace finalproject {
 			this->lblGPA->Size = System::Drawing::Size(100, 26);
 			this->lblGPA->TabIndex = 24;
 			this->lblGPA->Text = L"GPA: N/A";
-			// 
+			//Â 
 			// lblStudentInfo
-			// 
+			//Â 
 			this->lblStudentInfo->AutoSize = true;
 			this->lblStudentInfo->Font = (gcnew System::Drawing::Font(L"Times New Roman", 13.8F));
 			this->lblStudentInfo->Location = System::Drawing::Point(35, 54);
@@ -164,9 +164,9 @@ namespace finalproject {
 			this->lblStudentInfo->Size = System::Drawing::Size(199, 26);
 			this->lblStudentInfo->TabIndex = 25;
 			this->lblStudentInfo->Text = L"Student: Loading...";
-			// 
+			//Â 
 			// label4
-			// 
+			//Â 
 			this->label4->AutoSize = true;
 			this->label4->Font = (gcnew System::Drawing::Font(L"Times New Roman", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -175,9 +175,9 @@ namespace finalproject {
 			this->label4->Size = System::Drawing::Size(223, 26);
 			this->label4->TabIndex = 26;
 			this->label4->Text = L"Enrollments Record:";
-			// 
+			//Â 
 			// btnFind
-			// 
+			//Â 
 			this->btnFind->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
 			this->btnFind->Location = System::Drawing::Point(620, 54);
 			this->btnFind->Name = L"btnFind";
@@ -186,16 +186,16 @@ namespace finalproject {
 			this->btnFind->Text = L"Find";
 			this->btnFind->UseVisualStyleBackColor = true;
 			this->btnFind->Click += gcnew System::EventHandler(this, &frmTranscript::btnFind_Click);
-			// 
+			//Â 
 			// txtFind
-			// 
+			//Â 
 			this->txtFind->Location = System::Drawing::Point(403, 58);
 			this->txtFind->Name = L"txtFind";
 			this->txtFind->Size = System::Drawing::Size(211, 22);
 			this->txtFind->TabIndex = 33;
-			// 
+			//Â 
 			// label8
-			// 
+			//Â 
 			this->label8->AutoSize = true;
 			this->label8->Font = (gcnew System::Drawing::Font(L"Times New Roman", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -204,9 +204,9 @@ namespace finalproject {
 			this->label8->Size = System::Drawing::Size(244, 26);
 			this->label8->TabIndex = 32;
 			this->label8->Text = L"Find Student with Email:";
-			// 
+			//Â 
 			// btnDownload
-			// 
+			//Â 
 			this->btnDownload->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
 			this->btnDownload->Location = System::Drawing::Point(475, 439);
 			this->btnDownload->Name = L"btnDownload";
@@ -215,9 +215,9 @@ namespace finalproject {
 			this->btnDownload->Text = L"Download";
 			this->btnDownload->UseVisualStyleBackColor = true;
 			this->btnDownload->Click += gcnew System::EventHandler(this, &frmTranscript::btnDownload_Click);
-			// 
+			//Â 
 			// frmTranscript
-			// 
+			//Â 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::IndianRed;

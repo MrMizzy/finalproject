@@ -20,7 +20,7 @@ namespace finalproject {
 		MySqlDataAdapter^ sqlDA = gcnew MySqlDataAdapter();
 		MySqlDataReader^ sqlDR;
 		DataTable^ sqlDT = gcnew DataTable();
-		String^ ConnectionStr = "datasource = localhost; port=3306; username=root; password=""; database=ashesimis;";
+		String^ ConnectionStr = "datasource = localhost; port=3306; username=root; password=""; database=ashesi_arms;";
 	private: System::Windows::Forms::Panel^ panel1;
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
