@@ -39,6 +39,7 @@ namespace finalproject {
 			//
 			//TODO: Add the constructor code here
 			//
+			LoadDepartments();
 		}
 	protected:
 		/// <summary>
@@ -262,7 +263,6 @@ namespace finalproject {
 			// deptCombo
 			// 
 			this->deptCombo->FormattingEnabled = true;
-			this->deptCombo->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Admin", L"Faculty", L"Student" });
 			this->deptCombo->Location = System::Drawing::Point(470, 347);
 			this->deptCombo->Name = L"deptCombo";
 			this->deptCombo->Size = System::Drawing::Size(369, 24);
@@ -298,6 +298,21 @@ namespace finalproject {
 			this->PerformLayout();
 		}
 #pragma endregion
+
+	private: 
+		System::Void LoadDepartments() {
+		sqlConn->ConnectionString = ConnectionStr;
+		sqlConn->Open();
+		sqlCmd->Connection = sqlConn;
+		sqlCmd->CommandText = "SELECT * FROM department ORDER By dept_name ASC";
+		sqlDR = sqlCmd->ExecuteReader();
+		while (sqlDR->Read()) {
+			deptCombo->Items->Add(sqlDR->GetString("dept_name"));
+		}
+		sqlDR->Close();
+		sqlCmd->Cancel();
+		sqlConn->Close();
+	}
 	private: System::Void btnCancel_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
 	}
@@ -319,7 +334,7 @@ namespace finalproject {
 			sqlConn->ConnectionString = ConnectionStr;
 			sqlConn->Open();
 			sqlCmd->Connection = sqlConn;
-			sqlCmd->CommandText = "INSERT INTO user VALUES (@fname, @lname, @email, @pwd, @role)";
+			sqlCmd->CommandText = "INSERT INTO user (f_name, l_name, email, password, role) VALUES (@fname, @lname, @email, @pwd, @role)";
 			sqlCmd->Parameters->AddWithValue("@fname", fname);
 			sqlCmd->Parameters->AddWithValue("@lname", lname);
 			sqlCmd->Parameters->AddWithValue("@email", email);
@@ -327,7 +342,7 @@ namespace finalproject {
 			sqlCmd->Parameters->AddWithValue("@role", 1); // 1 for faculty
 			if (sqlCmd->ExecuteNonQuery() == 1) {
 				sqlCmd->Parameters->Clear();
-				sqlCmd->CommandText = "INSERT INTO faculty (user_id, department_id) VALUES ((SELECT u.id FROM user u WHERE u.email = @email), (SELECT d.department_id from department d WHERE d.dept_name = @dept))";
+				sqlCmd->CommandText = "INSERT INTO faculty (faculty_id, department_id) VALUES ((SELECT u.uid FROM user u WHERE u.email = @email), (SELECT d.department_id from department d WHERE d.dept_name = @dept))";
 				sqlCmd->Parameters->AddWithValue("@email", email);
 				sqlCmd->Parameters->AddWithValue("@dept", dept);
 				if (sqlCmd->ExecuteNonQuery() == 1) {

@@ -34,13 +34,13 @@ namespace finalproject {
 			sqlConn->ConnectionString = ConnectionStr;
 			sqlConn->Open();
 			sqlCmd->Connection = sqlConn;
-			sqlCmd->CommandText = "SELECT * FROM department ORDER By id DESC";
+			sqlCmd->CommandText = "SELECT * FROM department ORDER By department_id DESC";
 			sqlDR = sqlCmd->ExecuteReader();
 			sqlDT->Load(sqlDR);
 			sqlDR->Close();
 			dataGridView1->DataSource = sqlDT;
-			dataGridView1->Columns[0]->Width = 50;
-			dataGridView1->Columns[1]->Width = 500;
+			dataGridView1->Columns[0]->Width = 100;
+			dataGridView1->Columns[1]->Width = 250;
 			sqlCmd->Cancel();
 			sqlConn->Close();
 		}
@@ -264,7 +264,7 @@ namespace finalproject {
 			sqlConn->ConnectionString = ConnectionStr;
 			sqlConn->Open();
 			sqlCmd->Connection = sqlConn;
-			sqlCmd->CommandText = "SELECT * from department where department = @dept";
+			sqlCmd->CommandText = "SELECT * from department where dept_name = @dept";
 			sqlCmd->Parameters->AddWithValue("@dept", department);
 			sqlDR = sqlCmd->ExecuteReader();
 			if (sqlDR->Read()) {
@@ -276,13 +276,14 @@ namespace finalproject {
 			else {
 				sqlDR->Close();
 				sqlCmd->Cancel();
-				sqlCmd->CommandText = "INSERT INTO department(Department) VALUES (@department)";
+				sqlCmd->CommandText = "INSERT INTO department(dept_name) VALUES (@department)";
 				sqlCmd->Parameters->AddWithValue("@department", department);
 				sqlCmd->ExecuteNonQuery();
 				sqlCmd->Cancel();
 				MessageBox::Show("Department is saved successfully");
 			}
 			sqlConn->Close();
+			LoadData();
 		}
 		catch (Exception^ e) {
 			MessageBox::Show("Database Connection Error: " + e->ToString(), "Data Entry Error",
@@ -304,19 +305,19 @@ namespace finalproject {
 			sqlConn->Open();
 			sqlCmd->Connection = sqlConn;
 			sqlCmd->Parameters->Clear();
-			sqlCmd->CommandText = "SELECT * FROM department where id = @deptID";
+			sqlCmd->CommandText = "SELECT * FROM department where department_id = @deptID";
 			sqlCmd->Parameters->AddWithValue("@deptID", departmentID);
 			sqlDR = sqlCmd->ExecuteReader();
 			if (sqlDR->Read()) {
 				MessageBox::Show("Department Found");
-				txtDepartment->Text = sqlDR["Department"]->ToString();
-				globalDeptID = Convert::ToInt32(sqlDR["id"]);
+				txtDepartment->Text = sqlDR["dept_name"]->ToString();
+				globalDeptID = Convert::ToInt32(sqlDR["department_id"]);
 				sqlDT->Load(sqlDR);
 				sqlDR->Close();
 				dataGridView1->DataSource = nullptr;
 				dataGridView1->DataSource = sqlDT;
-				dataGridView1->Columns[0]->Width = 50;
-				dataGridView1->Columns[1]->Width = 500;
+				dataGridView1->Columns[0]->Width = 100;
+				dataGridView1->Columns[1]->Width = 250;
 				sqlDR->Close();
 				sqlCmd->Cancel();
 				sqlConn->Close();
@@ -352,19 +353,19 @@ namespace finalproject {
 			sqlConn->Open();
 			sqlCmd->Connection = sqlConn;
 			sqlCmd->Parameters->Clear();
-			sqlCmd->CommandText = "UPDATE department SET Department = @department where id = @deptID";
+			sqlCmd->CommandText = "UPDATE department SET dept_name = @department where department_id = @deptID";
 			sqlCmd->Parameters->AddWithValue("@deptID", globalDeptID);
 			sqlCmd->Parameters->AddWithValue("@department", department);
 			sqlCmd->BeginExecuteNonQuery();
 			MessageBox::Show("Update is successful");
 			//Load the data in the department table to the DataGridView Control
-			sqlCmd->CommandText = "SELECT * FROM department ORDER By id DESC";
+			sqlCmd->CommandText = "SELECT * FROM department ORDER By department_id DESC";
 			sqlDR = sqlCmd->ExecuteReader();
 			sqlDT->Load(sqlDR);
 			sqlDR->Close();
 			dataGridView1->DataSource = sqlDT;
-			dataGridView1->Columns[0]->Width = 50;
-			dataGridView1->Columns[1]->Width = 500;
+			dataGridView1->Columns[0]->Width = 100;
+			dataGridView1->Columns[1]->Width = 250;
 			sqlCmd->Cancel();
 			txtDepartment->Text = "";
 			sqlConn->Close();
@@ -386,8 +387,8 @@ namespace finalproject {
 			   da->Fill(dt);
 
 			   dataGridView1->DataSource = dt;
-			   dataGridView1->Columns[0]->Width = 50;
-			   dataGridView1->Columns[1]->Width = 500;
+			   dataGridView1->Columns[0]->Width = 100;
+			   dataGridView1->Columns[1]->Width = 250;
 		   }
 	private: System::Void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (globalDeptID == 0 || txtDepartment->Text->Trim() == "") {
@@ -399,11 +400,14 @@ namespace finalproject {
 		}
 		String^ department = txtDepartment->Text;
 		try {
+			if (sqlConn->State == ConnectionState::Open) {
+				sqlConn->Close();
+			}
 			sqlConn->ConnectionString = ConnectionStr;
 			sqlConn->Open();
 			sqlCmd->Connection = sqlConn;
 			sqlCmd->Parameters->Clear();
-			sqlCmd->CommandText = "DELETE FROM department where id = @deptID";
+			sqlCmd->CommandText = "DELETE FROM department where department_id = @deptID";
 			sqlCmd->Parameters->AddWithValue("@deptID", globalDeptID);
 			sqlCmd->BeginExecuteNonQuery();
 			MessageBox::Show("The department is deleted successfully");

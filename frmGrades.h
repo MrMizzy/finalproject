@@ -26,13 +26,10 @@ namespace finalproject {
 	private: System::Windows::Forms::Button^ btnFind;
 	private: System::Windows::Forms::TextBox^ txtFind;
 	private: System::Windows::Forms::Label^ label8;
-	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::ComboBox^ courseCombo;
-
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::ComboBox^ gradeCombo;
-
 		   int selectedStudentID = 0;
 	public:
 
@@ -59,18 +56,11 @@ namespace finalproject {
 		}
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::TextBox^ txtName;
-
-	private: System::Windows::Forms::Button^ btnSave;
 	private: System::Windows::Forms::Button^ btnUpdate;
-	private: System::Windows::Forms::Button^ btnDelete;
+
 	private: System::Windows::Forms::Button^ btnCancel;
 	private: System::Windows::Forms::Panel^ panel1;
 	private: System::Windows::Forms::DataGridView^ dataGridView1;
-
-
-
-	protected:
-
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -84,13 +74,11 @@ namespace finalproject {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle4 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->txtName = (gcnew System::Windows::Forms::TextBox());
-			this->btnSave = (gcnew System::Windows::Forms::Button());
 			this->btnUpdate = (gcnew System::Windows::Forms::Button());
-			this->btnDelete = (gcnew System::Windows::Forms::Button());
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
@@ -98,7 +86,6 @@ namespace finalproject {
 			this->btnFind = (gcnew System::Windows::Forms::Button());
 			this->txtFind = (gcnew System::Windows::Forms::TextBox());
 			this->label8 = (gcnew System::Windows::Forms::Label());
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->courseCombo = (gcnew System::Windows::Forms::ComboBox());
 			this->label4 = (gcnew System::Windows::Forms::Label());
@@ -126,22 +113,10 @@ namespace finalproject {
 			this->txtName->Size = System::Drawing::Size(605, 34);
 			this->txtName->TabIndex = 1;
 			// 
-			// btnSave
-			// 
-			this->btnSave->BackColor = System::Drawing::Color::White;
-			this->btnSave->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
-			this->btnSave->Location = System::Drawing::Point(221, 204);
-			this->btnSave->Name = L"btnSave";
-			this->btnSave->Size = System::Drawing::Size(111, 32);
-			this->btnSave->TabIndex = 2;
-			this->btnSave->Text = L"Save";
-			this->btnSave->UseVisualStyleBackColor = false;
-			this->btnSave->Click += gcnew System::EventHandler(this, &frmGrades::btnSave_Click);
-			// 
 			// btnUpdate
 			// 
 			this->btnUpdate->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
-			this->btnUpdate->Location = System::Drawing::Point(388, 204);
+			this->btnUpdate->Location = System::Drawing::Point(584, 143);
 			this->btnUpdate->Name = L"btnUpdate";
 			this->btnUpdate->Size = System::Drawing::Size(111, 32);
 			this->btnUpdate->TabIndex = 3;
@@ -149,21 +124,10 @@ namespace finalproject {
 			this->btnUpdate->UseVisualStyleBackColor = true;
 			this->btnUpdate->Click += gcnew System::EventHandler(this, &frmGrades::btnUpdate_Click);
 			// 
-			// btnDelete
-			// 
-			this->btnDelete->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
-			this->btnDelete->Location = System::Drawing::Point(554, 204);
-			this->btnDelete->Name = L"btnDelete";
-			this->btnDelete->Size = System::Drawing::Size(111, 32);
-			this->btnDelete->TabIndex = 4;
-			this->btnDelete->Text = L"Delete";
-			this->btnDelete->UseVisualStyleBackColor = true;
-			this->btnDelete->Click += gcnew System::EventHandler(this, &frmGrades::btnDelete_Click);
-			// 
 			// btnCancel
 			// 
 			this->btnCancel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
-			this->btnCancel->Location = System::Drawing::Point(714, 204);
+			this->btnCancel->Location = System::Drawing::Point(712, 143);
 			this->btnCancel->Name = L"btnCancel";
 			this->btnCancel->Size = System::Drawing::Size(111, 32);
 			this->btnCancel->TabIndex = 5;
@@ -175,35 +139,35 @@ namespace finalproject {
 			// 
 			this->panel1->BackColor = System::Drawing::Color::Gray;
 			this->panel1->Controls->Add(this->dataGridView1);
-			this->panel1->Location = System::Drawing::Point(221, 242);
+			this->panel1->Location = System::Drawing::Point(221, 181);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(603, 225);
+			this->panel1->Size = System::Drawing::Size(603, 286);
 			this->panel1->TabIndex = 6;
 			// 
 			// dataGridView1
 			// 
-			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle1->BackColor = System::Drawing::SystemColors::Control;
-			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			dataGridViewCellStyle1->ForeColor = System::Drawing::SystemColors::WindowText;
-			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->dataGridView1->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle3->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle3->BackColor = System::Drawing::SystemColors::Control;
+			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			dataGridViewCellStyle3->ForeColor = System::Drawing::SystemColors::WindowText;
+			dataGridViewCellStyle3->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle3->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle3->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->dataGridView1->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle2->BackColor = System::Drawing::SystemColors::Window;
-			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			dataGridViewCellStyle2->ForeColor = System::Drawing::SystemColors::ControlText;
-			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->dataGridView1->DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle4->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle4->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			dataGridViewCellStyle4->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle4->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle4->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle4->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->dataGridView1->DefaultCellStyle = dataGridViewCellStyle4;
 			this->dataGridView1->Location = System::Drawing::Point(0, 0);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->RowHeadersWidth = 50;
 			this->dataGridView1->RowTemplate->Height = 24;
-			this->dataGridView1->Size = System::Drawing::Size(604, 225);
+			this->dataGridView1->Size = System::Drawing::Size(604, 286);
 			this->dataGridView1->TabIndex = 0;
 			// 
 			// label2
@@ -220,16 +184,17 @@ namespace finalproject {
 			// btnFind
 			// 
 			this->btnFind->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
-			this->btnFind->Location = System::Drawing::Point(605, 491);
+			this->btnFind->Location = System::Drawing::Point(714, 491);
 			this->btnFind->Name = L"btnFind";
 			this->btnFind->Size = System::Drawing::Size(111, 32);
 			this->btnFind->TabIndex = 35;
 			this->btnFind->Text = L"Find";
 			this->btnFind->UseVisualStyleBackColor = true;
+			this->btnFind->Click += gcnew System::EventHandler(this, &frmGrades::btnFind_Click);
 			// 
 			// txtFind
 			// 
-			this->txtFind->Location = System::Drawing::Point(262, 495);
+			this->txtFind->Location = System::Drawing::Point(371, 498);
 			this->txtFind->Name = L"txtFind";
 			this->txtFind->Size = System::Drawing::Size(337, 22);
 			this->txtFind->TabIndex = 34;
@@ -239,21 +204,11 @@ namespace finalproject {
 			this->label8->AutoSize = true;
 			this->label8->Font = (gcnew System::Drawing::Font(L"Times New Roman", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label8->Location = System::Drawing::Point(12, 495);
+			this->label8->Location = System::Drawing::Point(121, 495);
 			this->label8->Name = L"label8";
 			this->label8->Size = System::Drawing::Size(244, 26);
 			this->label8->TabIndex = 33;
 			this->label8->Text = L"Find Student with Email:";
-			// 
-			// button1
-			// 
-			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
-			this->button1->Location = System::Drawing::Point(729, 491);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(111, 32);
-			this->button1->TabIndex = 32;
-			this->button1->Text = L"Cancel";
-			this->button1->UseVisualStyleBackColor = true;
 			// 
 			// label3
 			// 
@@ -288,9 +243,9 @@ namespace finalproject {
 			// gradeCombo
 			// 
 			this->gradeCombo->FormattingEnabled = true;
-			this->gradeCombo->Items->AddRange(gcnew cli::array< System::Object^  >(9) {
-				L"\"A+\"", L"\"A\"", L"\"B+\"", L"\"B\"", L"\"C+\"",
-					L"\"C\"", L"\"D+\"", L"\"D\"", L"\"E\""
+			this->gradeCombo->Items->AddRange(gcnew cli::array< System::Object^  >(10) {
+				L"A+", L"A", L"B+", L"B", L"C+", L"C", L"D+",
+					L"D", L"E", L"None"
 			});
 			this->gradeCombo->Location = System::Drawing::Point(221, 143);
 			this->gradeCombo->Name = L"gradeCombo";
@@ -310,18 +265,15 @@ namespace finalproject {
 			this->Controls->Add(this->btnFind);
 			this->Controls->Add(this->txtFind);
 			this->Controls->Add(this->label8);
-			this->Controls->Add(this->button1);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->btnCancel);
-			this->Controls->Add(this->btnDelete);
 			this->Controls->Add(this->btnUpdate);
-			this->Controls->Add(this->btnSave);
 			this->Controls->Add(this->txtName);
 			this->Controls->Add(this->label1);
 			this->Name = L"frmGrades";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterParent;
-			this->Text = L"s";
+			this->Text = L"Manage Grades";
 			this->panel1->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);
@@ -329,58 +281,6 @@ namespace finalproject {
 
 		}
 #pragma endregion
-	private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e) {
-		String^ name = txtName->Text->Trim();
-		String^ course = courseCombo->Text;
-		String^ grade = gradeCombo->Text;
-		if (name == "") {
-			MessageBox::Show("Please Find a Student first", "Data Entry Error",
-				MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			return;
-		}
-		if (course == "") {
-			MessageBox::Show("Please Select a Course", "Data Entry Error",
-				MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			return;
-		}
-		if (grade == "") {
-			MessageBox::Show("Please Select a Grade", "Data Entry Error",
-				MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			return;
-		}
-		try {
-			sqlConn->ConnectionString = ConnectionStr;
-			sqlConn->Open();
-			sqlCmd->Connection = sqlConn;
-			sqlCmd->CommandText = "SELECT * from enrollments where student_id = @sid AND course_id = (SELECT course_id from course where course_name = @course) AND grade IS NOT NULL";
-			sqlCmd->Parameters->AddWithValue("@sid", selectedStudentID);
-			sqlCmd->Parameters->AddWithValue("@course", course);
-			sqlDR = sqlCmd->ExecuteReader();
-			if (sqlDR->Read()) {
-				MessageBox::Show("Grade already exists, use update instead", "Data Entry Error",
-					MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				sqlDR->Close();
-				sqlCmd->Cancel();
-			}
-			else {
-				sqlDR->Close();
-				sqlCmd->Cancel();
-				sqlCmd->CommandText = "INSERT INTO enrollments(student_id, course_id, grade) VALUES (@sid, (SELECT course_id from course where course_name = @course), @grade)";
-				sqlCmd->Parameters->AddWithValue("@sid", selectedStudentID);
-				sqlCmd->Parameters->AddWithValue("@course", course);
-				sqlCmd->Parameters->AddWithValue("@grade", grade);
-				sqlCmd->ExecuteNonQuery();
-				sqlCmd->Cancel();
-				MessageBox::Show("Grade saved successfully");
-				LoadGradeData(selectedStudentID);
-			}
-			sqlConn->Close();
-		}
-		catch (Exception^ e) {
-			MessageBox::Show("Database Connection Error: " + e->ToString(), "Data Entry Error",
-				MessageBoxButtons::OK, MessageBoxIcon::Warning);
-		}
-	}
 	private: System::Void btnFind_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ emailToFind = txtFind->Text->Trim();
 		try {
@@ -452,7 +352,7 @@ namespace finalproject {
 			sqlCmd->Parameters->AddWithValue("@grade", grade);
 			sqlCmd->Parameters->AddWithValue("@sid", selectedStudentID);
 			sqlCmd->Parameters->AddWithValue("@course", course);
-			sqlCmd->BeginExecuteNonQuery();
+			sqlCmd->ExecuteNonQuery();
 			MessageBox::Show("Update is successful");
 			LoadGradeData(selectedStudentID);
 		}
@@ -469,7 +369,7 @@ namespace finalproject {
 			   sqlConn->Open();
 
 			   DataTable^ dt = gcnew DataTable();
-			   MySqlDataAdapter^ da = gcnew MySqlDataAdapter("SELECT u.f_name, u.l_name, u.email FROM users u JOIN student s ON u.id = s.user_id", sqlConn);
+			   MySqlDataAdapter^ da = gcnew MySqlDataAdapter("SELECT u.f_name, u.l_name, u.email FROM user u JOIN student s ON u.uid = s.student_id", sqlConn);
 			   da->Fill(dt);
 
 			   dataGridView1->DataSource = dt;
@@ -486,7 +386,7 @@ namespace finalproject {
 			   sqlConn->Open();
 			   sqlCmd->Connection = sqlConn;
 			   sqlCmd->Parameters->Clear();
-			   sqlCmd->CommandText = "SELECT c.course_name, e.grade FROM enrollment e JOIN course c ON e.course_id = c.course_id WHERE e.student_id = @sid";
+			   sqlCmd->CommandText = "SELECT c.course_name, e.grade FROM enrollments e JOIN course c ON e.course_id = c.course_id WHERE e.student_id = @sid";
 			   sqlCmd->Parameters->AddWithValue("@sid", sid);
 			   sqlDR = sqlCmd->ExecuteReader();
 			   DataTable^ dt = gcnew DataTable();
@@ -505,7 +405,7 @@ namespace finalproject {
 			   sqlConn->Open();
 			   sqlCmd->Connection = sqlConn;
 			   sqlCmd->Parameters->Clear();
-			   sqlCmd->CommandText = "SELECT c.course_name FROM enrollment e JOIN course c ON e.course_id = c.course_id WHERE e.student_id = @sid";
+			   sqlCmd->CommandText = "SELECT c.course_name FROM enrollments e JOIN course c ON e.course_id = c.course_id WHERE e.student_id = @sid";
 			   sqlCmd->Parameters->AddWithValue("@sid", sid);
 			   sqlDR = sqlCmd->ExecuteReader();
 			   while (sqlDR->Read()) {
@@ -513,40 +413,6 @@ namespace finalproject {
 				   courseCombo->Items->Add(courseName);
 			   }
 		   }
-	private: System::Void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
-		String^ name = txtName->Text->Trim();
-		String^ course = courseCombo->Text;
-		String^ grade = gradeCombo->Text;
-		if (name == "") {
-			MessageBox::Show("Please Find a Student first", "Data Entry Error",
-				MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			return;
-		}
-		if (course == "") {
-			MessageBox::Show("Please Select a Course", "Data Entry Error",
-				MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			return;
-		}
-		if (sqlConn->State == ConnectionState::Open) {
-			sqlConn->Close();
-		}
-		try {
-			sqlConn->ConnectionString = ConnectionStr;
-			sqlConn->Open();
-			sqlCmd->Connection = sqlConn;
-			sqlCmd->Parameters->Clear();
-			sqlCmd->CommandText = "UPDATE enrollments SET grade = NULL WHERE student_id = @sid AND course_id = (SELECT course_id from course where course_name = @course)";
-			sqlCmd->Parameters->AddWithValue("@sid", selectedStudentID);
-			sqlCmd->Parameters->AddWithValue("@course", course);
-			MessageBox::Show("The grade is deleted successfully");
-			LoadGradeData(selectedStudentID);
-			sqlConn->Close();
-		}
-		catch (Exception^ e) {
-			MessageBox::Show("Database Connection Error: " + e->ToString(), "Data Entry Error",
-				MessageBoxButtons::OK, MessageBoxIcon::Warning);
-		}
-	}
 	private: System::Void btnCancel_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
 	}

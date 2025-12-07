@@ -114,6 +114,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="facMain.cpp" />
+    <ClCompile Include="frmAssign.cpp" />
     <ClCompile Include="frmCourses.cpp" />
     <ClCompile Include="frmDepartment.cpp" />
     <ClCompile Include="frmEnroll.cpp" />
@@ -129,7 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MySql.Data">
-      <HintPath>..\..\..\..\..\..\Downloads\mysql-for-visualstudio-2.0.5-noinstall\v461\mysql.data.dll</HintPath>
+      <HintPath>db\mysql.data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -139,6 +140,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="facMain.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="frmAssign.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="frmCourses.h">
@@ -206,6 +210,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="newfrmRegister.resx">
       <DependentUpon>newfrmRegister.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="stuMain.resx">
+      <DependentUpon>stuMain.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

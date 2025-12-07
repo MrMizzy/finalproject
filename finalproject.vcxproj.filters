@@ -54,6 +54,9 @@
     <ClCompile Include="stuMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="frmAssign.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="newfrmLogin.h">
@@ -93,6 +96,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stuMain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="frmAssign.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

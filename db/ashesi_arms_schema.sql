@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2025 at 03:54 AM
+-- Generation Time: Dec 07, 2025 at 09:31 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,10 +39,11 @@ CREATE TABLE `admin` (
 
 CREATE TABLE `course` (
   `course_id` int(11) NOT NULL,
+  `course_code` varchar(10) NOT NULL,
   `course_name` varchar(50) NOT NULL,
   `programme_id` int(11) NOT NULL,
   `level` int(11) DEFAULT NULL,
-  `sem` enum('spring','summer',',fall') DEFAULT NULL,
+  `sem` enum('spring','summer','fall') DEFAULT NULL,
   `credit` float(2,1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -79,7 +80,7 @@ CREATE TABLE `enrollments` (
   `enrollment_id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
   `course_id` int(11) NOT NULL,
-  `grade` enum('A+','A','B+','B','C+','C','D+','D','E') DEFAULT NULL
+  `grade` enum('A+','A','B+','B','C+','C','D+','D','E','None') NOT NULL DEFAULT 'None'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -129,7 +130,8 @@ CREATE TABLE `prerequisites` (
 CREATE TABLE `programme` (
   `programme_id` int(11) NOT NULL,
   `prgm_name` varchar(50) NOT NULL,
-  `department_id` int(11) NOT NULL
+  `department_id` int(11) NOT NULL,
+  `prgm_type` enum('BSc','BA','MSc','MA','PhD') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -156,7 +158,7 @@ CREATE TABLE `user` (
   `l_name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` varchar(255) DEFAULT NULL
+  `role` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -174,6 +176,7 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `course`
   ADD PRIMARY KEY (`course_id`),
+  ADD UNIQUE KEY `course_code` (`course_code`),
   ADD KEY `programme_id` (`programme_id`);
 
 --

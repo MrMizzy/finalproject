@@ -1,17 +1,13 @@
 #include "newFrmLogin.h"
 #include "frmMain.h"
 #include "facMain.h"
-
+#include "stuMain.h"
 using namespace System;
 using namespace System::Windows::Forms;
 
 int main(array<String^>^ args) {
     Application::EnableVisualStyles();
     Application::SetCompatibleTextRenderingDefault(false);
-
-	System::Windows::Forms::DialogResult result = MessageBox::Show("Welcome to Ashesi Academic Record Management System. Are you a new user?", "Welcome",
-		MessageBoxButtons::YesNo);
-
     finalproject::newfrmLogin frmLogin;
     frmLogin.ShowDialog();
     User^ user = frmLogin.user;
@@ -29,7 +25,9 @@ int main(array<String^>^ args) {
 			Application::Run(% facmain);
         }
         else if (user->roleNum == 2) {
-            // Student user logic (if any specific form is needed)
+            // Student user logic
+			finalproject::stuMain stumain(user);
+			Application::Run(% stumain);
 		}
     }
     else {

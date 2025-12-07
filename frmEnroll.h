@@ -37,7 +37,23 @@ namespace finalproject {
 			currentUser = user;
 			if (user->roleNum != 2) {
 				/*Load all courses that exist*/
-				//LoadAllCourses();
+				LoadAllCourses();
+				if (sqlConn->State == ConnectionState::Open) {
+					sqlConn->Close();
+				}
+				sqlConn->ConnectionString = ConnectionStr;
+				sqlConn->Open();
+				DataTable^ dt = gcnew DataTable();
+				MySqlCommand^ sqlCmd = gcnew MySqlCommand();
+				sqlCmd->Connection = sqlConn;
+				sqlCmd->CommandText = "SELECT c.course_name, e.grade FROM enrollments e JOIN course c ON c.course_id = e.course_id JOIN student s ON s.student_id = e.student_id";
+				MySqlDataAdapter^ da = gcnew MySqlDataAdapter(sqlCmd);
+				da->Fill(dt);
+				dataGridView1->DataSource = dt;
+				dataGridView1->Columns[0]->Width = 100;
+				dataGridView1->Columns[1]->Width = 50;
+				sqlCmd->Cancel();
+				sqlConn->Close();
 			}
 			else
 			{
@@ -51,7 +67,7 @@ namespace finalproject {
 				sqlConn->ConnectionString = ConnectionStr;
 				sqlConn->Open();
 				sqlCmd->Connection = sqlConn;
-				sqlCmd->CommandText = "SELECT u.email FROM user u WHERE u.id = @studentID";
+				sqlCmd->CommandText = "SELECT u.email FROM user u WHERE u.uid = @studentID";
 				sqlCmd->Parameters->AddWithValue("@studentID", studentID);
 				sqlDR = sqlCmd->ExecuteReader();
 				if (sqlDR->Read()) {
@@ -69,6 +85,7 @@ namespace finalproject {
 					this->Close();
 				}
 				LoadPossibleEnrolls();
+				LoadData();
 			}
 		}
 	protected:
@@ -280,12 +297,10 @@ namespace finalproject {
 			sqlConn->ConnectionString = ConnectionStr;
 			sqlConn->Open();
 			sqlCmd->Connection = sqlConn;
-			sqlCmd->CommandText = "SELECT c.course_name FROM " +
-				"course c JOIN programme p ON p.programme_id = c.programme_id " +
-				"JOIN student s ON s.programme_id = p.programme_id" +
-				"WHERE c.course_id NOT IN(SELECT course_id FROM enrollments WHERE student_id = @uid)";
+			sqlCmd->CommandText = "SELECT c.course_name FROM course c JOIN programme p ON p.programme_id = c.programme_id JOIN student s ON s.programme_id = p.programme_id WHERE c.course_id NOT IN (SELECT course_id FROM enrollments WHERE student_id = @uid)";
 			sqlCmd->Parameters->AddWithValue("@uid", studentID);
 			sqlDR = sqlCmd->ExecuteReader();
+			enrollCombo->Items->Clear();
 			while (sqlDR->Read()) {
 				String^ courseName = sqlDR["course_name"]->ToString();
 				enrollCombo->Items->Add(courseName);
@@ -300,11 +315,10 @@ namespace finalproject {
 			sqlConn->ConnectionString = ConnectionStr;
 			sqlConn->Open();
 			sqlCmd->Connection = sqlConn;
-			sqlCmd->CommandText = "SELECT c.course_name FROM course c " +
-				"JOIN enrollments e ON e.course_id = c.course_id " +
-				"WHERE c.course_id NOT IN(SELECT course_id FROM enrollments WHERE student_id = @uid)";
-			sqlCmd->Parameters->AddWithValue("@uid", studentID);
+			sqlCmd->CommandText = "SELECT course_name FROM course";
 			sqlDR = sqlCmd->ExecuteReader();
+			sqlCmd->Parameters->Clear();
+			enrollCombo->Items->Clear();
 			while (sqlDR->Read()) {
 				String^ courseName = sqlDR["course_name"]->ToString();
 				enrollCombo->Items->Add(courseName);
@@ -325,16 +339,19 @@ namespace finalproject {
 			sqlConn->ConnectionString = ConnectionStr;
 			sqlConn->Open();
 			sqlCmd->Connection = sqlConn;
-			sqlCmd->CommandText = "SELECT u.id FROM user u WHERE u.email = @email";
+			sqlCmd->CommandText = "SELECT u.uid FROM user u WHERE u.email = @email";
 			sqlCmd->Parameters->AddWithValue("@email", email);
 			sqlDR = sqlCmd->ExecuteReader();
+			sqlCmd->Parameters->Clear();
 			if (sqlDR->Read()) {
-				studentID = Convert::ToInt32(sqlDR["id"]);
+				studentID = Convert::ToInt32(sqlDR["uid"]);
 				sqlDR->Close();
 				sqlCmd->Cancel();
 				sqlConn->Close();
 				LoadData();
 				LoadAllCourses();
+				MessageBox::Show("Student record found", "Data Load",
+					MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 			else {
 				sqlDR->Close();
@@ -344,6 +361,7 @@ namespace finalproject {
 					MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				return;
 			}
+			sqlDR->Close();
 		}
 		System::Void btnEnroll_Click(System::Object^ sender, System::EventArgs^ e) {
 			String^ courseName = enrollCombo->Text;
@@ -355,6 +373,9 @@ namespace finalproject {
 			if (sqlConn->State == ConnectionState::Open) {
 				sqlConn->Close();
 			}
+			if (sqlDR != nullptr) {
+				sqlDR->Close();
+			}
 			if (studentID == 0) {
 				MessageBox::Show("Please find a student first", "Input Error",
 					MessageBoxButtons::OK, MessageBoxIcon::Warning);
@@ -363,10 +384,34 @@ namespace finalproject {
 			sqlConn->ConnectionString = ConnectionStr;
 			sqlConn->Open();
 			sqlCmd->Connection = sqlConn;
-			sqlCmd->CommandText = "INSERT INTO enrollments(student_id, course_id, grade) " +
-				"VALUES(@uid, (SELECT c.course_id FROM course c WHERE c.course_name = @cname), NULL)";
-			sqlCmd->Parameters->AddWithValue("@uid", studentID);
+			sqlCmd->Parameters->Clear();
+			sqlCmd->CommandText = "SELECT c.course_id FROM course c WHERE c.course_name = @cname";
 			sqlCmd->Parameters->AddWithValue("@cname", courseName);
+			sqlDR = sqlCmd->ExecuteReader();
+			int courseID = 0;
+			if (sqlDR->Read()) {
+				courseID = Convert::ToInt32(sqlDR["course_id"]);
+			}
+			sqlDR->Close();
+			sqlCmd->Parameters->Clear();
+			sqlCmd->CommandText = "SELECT * FROM enrollments WHERE student_id = @uid AND course_id = @cid";
+			sqlCmd->Parameters->AddWithValue("@uid", studentID);
+			sqlCmd->Parameters->AddWithValue("@cid", courseID);
+			sqlDR = sqlCmd->ExecuteReader();
+			if (sqlDR->Read()) {
+				MessageBox::Show("Student is already enrolled in this course", "Enrollment Error",
+					MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				sqlDR->Close();
+				sqlCmd->Cancel();
+				sqlConn->Close();
+				return;
+			}
+			sqlDR->Close();
+			sqlCmd->Parameters->Clear();
+			sqlCmd->CommandText = "INSERT INTO enrollments(student_id, course_id, grade) " +
+				"VALUES(@uid, @cid, NULL)";
+			sqlCmd->Parameters->AddWithValue("@uid", studentID);
+			sqlCmd->Parameters->AddWithValue("@cid", courseID);
 			sqlCmd->ExecuteNonQuery();
 			sqlCmd->Cancel();
 			sqlConn->Close();

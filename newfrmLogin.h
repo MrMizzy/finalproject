@@ -236,23 +236,26 @@ namespace finalproject {
 		}
 
 		try {
+			if (sqlConn->State == ConnectionState::Open) {
+				sqlConn->Close();
+			}
 			sqlConn->ConnectionString = ConnectionStr;
 			sqlConn->Open();
 			sqlCmd->Connection = sqlConn;
-			sqlCmd->CommandText = "SELECT * FROM users where email=@email AND password=@pwd";
+			sqlCmd->CommandText = "SELECT * FROM user where email=@email AND password=@pwd";
 			sqlCmd->Parameters->AddWithValue("@email", email);
 			sqlCmd->Parameters->AddWithValue("@pwd", password);
 			sqlDR = sqlCmd->ExecuteReader();
 
 			if (sqlDR->Read()) {
-				user->id = Convert::ToInt32(sqlDR["id"]);
-				user->fName = sqlDR["FirstName"]->ToString();
-				user->lName = sqlDR["LastName"]->ToString();
-				user->email = sqlDR["Email"]->ToString();
-				user->password = sqlDR["Password"]->ToString();
-				user->roleNum = Convert::ToInt32(sqlDR["Role"]);
+				user->id = Convert::ToInt32(sqlDR["uid"]);
+				user->fName = sqlDR["f_name"]->ToString();
+				user->lName = sqlDR["l_name"]->ToString();
+				user->email = sqlDR["email"]->ToString();
+				user->password = sqlDR["password"]->ToString();
+				user->roleNum = Convert::ToInt32(sqlDR["role"]);
 
-				MessageBox::Show("Hello " + sqlDR["FirstName"]);
+				MessageBox::Show("Hello " + sqlDR["f_name"]);
 				this->Close();
 			}
 			else {

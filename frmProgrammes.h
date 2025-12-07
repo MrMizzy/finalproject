@@ -293,10 +293,10 @@ namespace finalproject {
 			sqlConn->ConnectionString = ConnectionStr;
 			sqlConn->Open();
 			sqlCmd->Connection = sqlConn;
-			sqlCmd->CommandText = "SELECT * FROM department ORDER By department ASC";
+			sqlCmd->CommandText = "SELECT * FROM department ORDER By dept_name ASC";
 			sqlDR = sqlCmd->ExecuteReader();
 			while (sqlDR->Read()) {
-				comboDept->Items->Add(sqlDR->GetString("department"));
+				comboDept->Items->Add(sqlDR->GetString("dept_name"));
 			}
 			sqlDR->Close();
 			sqlCmd->Cancel();
@@ -327,13 +327,13 @@ namespace finalproject {
 				sqlConn->Open();
 				sqlCmd->Connection = sqlConn;
 				sqlCmd->Parameters->Clear();
-				sqlCmd->CommandText = "SELECT * FROM programmes where id = @prgmID";
+				sqlCmd->CommandText = "SELECT * FROM programme where programme_id = @prgmID";
 				sqlCmd->Parameters->AddWithValue("@prgmID", prgmID);
 				sqlDR = sqlCmd->ExecuteReader();
 				if (sqlDR->Read()) {
 					MessageBox::Show("Programme Found");
-					txtPrgm->Text = sqlDR["Programme"]->ToString();
-					globalPrgmtID = Convert::ToInt32(sqlDR["id"]);
+					txtPrgm->Text = sqlDR["prgm_name"]->ToString();
+					globalPrgmtID = Convert::ToInt32(sqlDR["programme_id"]);
 					LoadData();
 				}
 				else {
@@ -369,7 +369,7 @@ namespace finalproject {
 				sqlConn->ConnectionString = ConnectionStr;
 				sqlConn->Open();
 				sqlCmd->Connection = sqlConn;
-				sqlCmd->CommandText = "SELECT * FROM programmes WHERE Programme = @programme";
+				sqlCmd->CommandText = "SELECT * FROM programme WHERE prgm_name = @programme";
 				sqlCmd->Parameters->Clear();
 				sqlCmd->Parameters->AddWithValue("@programme", programme);
 				sqlDR = sqlCmd->ExecuteReader();
@@ -382,16 +382,16 @@ namespace finalproject {
 				else {
 					sqlDR->Close();
 					sqlCmd->Parameters->Clear();
-					sqlCmd->CommandText = "SELECT id FROM department WHERE Department = @department";
+					sqlCmd->CommandText = "SELECT department_id FROM department WHERE dept_name = @department";
 					sqlCmd->Parameters->AddWithValue("@department", department);
 					sqlDR = sqlCmd->ExecuteReader();
 					int depID = 0;
 					if (sqlDR->Read()) {
-						depID = Convert::ToInt32(sqlDR["id"]);
+						depID = Convert::ToInt32(sqlDR["department_id"]);
 					}
 					sqlDR->Close();
 					sqlCmd->Parameters->Clear();
-					sqlCmd->CommandText = "INSERT INTO programmes(Programme, Department, Programmetype) VALUES (@programme, @departmentID, @programmeType)";
+					sqlCmd->CommandText = "INSERT INTO programme(prgm_name, department_id, prgm_type) VALUES (@programme, @departmentID, @programmeType)";
 					sqlCmd->Parameters->AddWithValue("@programme", programme);
 					sqlCmd->Parameters->AddWithValue("@departmentID", depID);
 					sqlCmd->Parameters->AddWithValue("@programmeType", programmeType);
@@ -427,16 +427,20 @@ namespace finalproject {
 				sqlConn->ConnectionString = ConnectionStr;
 				sqlConn->Open();
 				sqlCmd->Parameters->Clear();
-				sqlCmd->CommandText = "SELECT id FROM department WHERE Department = @department";
+				sqlCmd->CommandText = "SELECT department_id FROM department WHERE dept_name = @department";
 				sqlCmd->Parameters->AddWithValue("@department", department);
 				sqlDR = sqlCmd->ExecuteReader();
 				int depID = 0;
 				if (sqlDR->Read()) {
-					depID = Convert::ToInt32(sqlDR["id"]);
+					depID = Convert::ToInt32(sqlDR["department_id"]);
+				}
+				if (department->Length == 0 || programme->Length == 0 || programmeType->Length == 0) {
+					MessageBox::Show("Please fill all fields first", "Empty Field(s)");
+					return;
 				}
 				sqlDR->Close();
 				sqlCmd->Parameters->Clear();
-				sqlCmd->CommandText = "UPDATE programmes SET Programme = @programme, Department = @depID, Programmetype = @pType WHERE id = @prgID";
+				sqlCmd->CommandText = "UPDATE programme SET prgm_name = @programme, department_id = @depID, prgm_type = @pType WHERE programme_id = @prgID";
 				sqlCmd->Parameters->AddWithValue("@prgID", globalPrgmtID);
 				sqlCmd->Parameters->AddWithValue("@depID", depID);
 				sqlCmd->Parameters->AddWithValue("@programme", programme);
@@ -468,7 +472,7 @@ namespace finalproject {
 				sqlConn->Open();
 				sqlCmd->Connection = sqlConn;
 				sqlCmd->Parameters->Clear();
-				sqlCmd->CommandText = "DELETE FROM programmes WHERE id = @prgmID";
+				sqlCmd->CommandText = "DELETE FROM programme WHERE programme_id = @prgmID";
 				sqlCmd->Parameters->AddWithValue("@prgmID", globalPrgmtID);
 				sqlCmd->ExecuteNonQuery();
 				MessageBox::Show("Programme Deleted Successfully");
@@ -491,7 +495,7 @@ namespace finalproject {
 			sqlConn->ConnectionString = ConnectionStr;
 			sqlConn->Open();
 			DataTable^ dt = gcnew DataTable();
-			MySqlDataAdapter^ da = gcnew MySqlDataAdapter("SELECT p.ID, d.Department, p.Programme, p.Programmetype, d.ID, p.Department FROM programmes p JOIN department d ON p.department=d.ID ORDER By p.ID DESC", sqlConn);
+			MySqlDataAdapter^ da = gcnew MySqlDataAdapter("SELECT p.programme_id, d.dept_name, p.prgm_name, p.prgm_type, d.department_id, p.department_id FROM programme p JOIN department d ON p.department_id=d.department_id ORDER By p.programme_id DESC", sqlConn);
 			da->Fill(dt);
 			dataGridView1->DataSource = dt;
 			dataGridView1->Columns[0]->Width = 50;

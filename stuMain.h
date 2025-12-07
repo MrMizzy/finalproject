@@ -120,7 +120,6 @@ namespace finalproject {
 			// 
 			this->toolStripLabel1->Name = L"toolStripLabel1";
 			this->toolStripLabel1->Size = System::Drawing::Size(0, 22);
-			this->toolStripLabel1->Click += gcnew System::EventHandler(this, &stuMain::toolStripLabel1_Click);
 			// 
 			// stuMain
 			// 

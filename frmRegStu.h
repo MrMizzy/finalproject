@@ -42,7 +42,7 @@ namespace finalproject {
 			//
 			//TODO: Add the constructor code here
 			//
-			LoadProg();
+			LoadProgrammes();
 		}
 	protected:
 		/// <summary>
@@ -268,7 +268,6 @@ namespace finalproject {
 			// progCombo
 			// 
 			this->progCombo->FormattingEnabled = true;
-			this->progCombo->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Admin", L"Faculty", L"Student" });
 			this->progCombo->Location = System::Drawing::Point(470, 306);
 			this->progCombo->Name = L"progCombo";
 			this->progCombo->Size = System::Drawing::Size(369, 24);
@@ -291,7 +290,6 @@ namespace finalproject {
 			this->txtYearGroup->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
 			this->txtYearGroup->Location = System::Drawing::Point(470, 353);
 			this->txtYearGroup->Name = L"txtYearGroup";
-			this->txtYearGroup->PasswordChar = '*';
 			this->txtYearGroup->Size = System::Drawing::Size(369, 34);
 			this->txtYearGroup->TabIndex = 14;
 			// 
@@ -328,6 +326,20 @@ namespace finalproject {
 
 		}
 #pragma endregion
+	private:
+		System::Void LoadProgrammes() {
+			sqlConn->ConnectionString = ConnectionStr;
+			sqlConn->Open();
+			sqlCmd->Connection = sqlConn;
+			sqlCmd->CommandText = "SELECT * FROM programme ORDER By prgm_name ASC";
+			sqlDR = sqlCmd->ExecuteReader();
+			while (sqlDR->Read()) {
+				progCombo->Items->Add(sqlDR->GetString("prgm_name"));
+			}
+			sqlDR->Close();
+			sqlCmd->Cancel();
+			sqlConn->Close();
+		}
 	private: System::Void btnCancel_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
 	}
@@ -353,7 +365,7 @@ namespace finalproject {
 			sqlConn->ConnectionString = ConnectionStr;
 			sqlConn->Open();
 			sqlCmd->Connection = sqlConn;
-			sqlCmd->CommandText = "INSERT INTO user VALUES (@fname, @lname, @email, @pwd, @role)";
+			sqlCmd->CommandText = "INSERT INTO user(f_name, l_name, email, password, role) VALUES (@fname, @lname, @email, @pwd, @role)";
 			sqlCmd->Parameters->AddWithValue("@fname", fname);
 			sqlCmd->Parameters->AddWithValue("@lname", lname);
 			sqlCmd->Parameters->AddWithValue("@email", email);
@@ -361,7 +373,7 @@ namespace finalproject {
 			sqlCmd->Parameters->AddWithValue("@role", 2); // 2 for student
 			if (sqlCmd->ExecuteNonQuery() == 1) {
 				sqlCmd->Parameters->Clear();
-				sqlCmd->CommandText = "INSERT INTO student (user_id, programme_id, yearGroup) VALUES ((SELECT u.id FROM user u WHERE u.email = @email), (SELECT p.programme_id from programme p WHERE p.prgm_name = @prog), @yearGroup)";
+				sqlCmd->CommandText = "INSERT INTO student (student_id, programme_id, yearGroup) VALUES ((SELECT u.uid FROM user u WHERE u.email = @email), (SELECT p.programme_id from programme p WHERE p.prgm_name = @prog), @yearGroup)";
 				sqlCmd->Parameters->AddWithValue("@email", email);
 				sqlCmd->Parameters->AddWithValue("@prog", prog);
 				sqlCmd->Parameters->AddWithValue("@yearGroup", yearGroup);

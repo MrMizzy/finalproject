@@ -364,10 +364,10 @@ namespace finalproject {
 			sqlConn->ConnectionString = ConnectionStr;
 			sqlConn->Open();
 			sqlCmd->Connection = sqlConn;
-			sqlCmd->CommandText = "SELECT * FROM programmes ORDER By Programme ASC";
+			sqlCmd->CommandText = "SELECT * FROM programme ORDER By prgm_name ASC";
 			sqlDR = sqlCmd->ExecuteReader();
 			while (sqlDR->Read()) {
-				comboPrgm->Items->Add(sqlDR->GetString("Programme"));
+				comboPrgm->Items->Add(sqlDR->GetString("prgm_name"));
 			}
 			sqlDR->Close();
 			sqlCmd->Cancel();
@@ -392,7 +392,7 @@ namespace finalproject {
 			sqlConn->ConnectionString = ConnectionStr;
 			sqlConn->Open();
 			DataTable^ dt = gcnew DataTable();
-			MySqlDataAdapter^ da = gcnew MySqlDataAdapter("SELECT c.ID, p.Programme, c.Level, c.Semester, c.CourseCode, c.CourseTitle, c.CourseCredit, c.Programme, p.ID FROM courses c JOIN programmes p ON c.Programme=p.ID ORDER By c.ID ASC", sqlConn);
+			MySqlDataAdapter^ da = gcnew MySqlDataAdapter("SELECT c.course_id, p.prgm_name, c.level, c.sem, c.course_code, c.course_name, c.credit, c.programme_id, p.programme_id FROM course c JOIN programme p ON c.programme_id=p.programme_id ORDER By c.course_id ASC", sqlConn);
 			da->Fill(dt);
 			dataGridView1->DataSource = dt;
 			dataGridView1->Columns[0]->Width = 50;
@@ -422,14 +422,14 @@ namespace finalproject {
 				sqlConn->Open();
 				sqlCmd->Connection = sqlConn;
 				sqlCmd->Parameters->Clear();
-				sqlCmd->CommandText = "SELECT * FROM courses where id = @courseID";
+				sqlCmd->CommandText = "SELECT * FROM course where course_id = @courseID";
 				sqlCmd->Parameters->AddWithValue("@courseID", courseID);
 				sqlDR = sqlCmd->ExecuteReader();
 				if (sqlDR->Read()) {
 					MessageBox::Show("Course Found");
-					txtCode->Text = sqlDR["CourseCode"]->ToString();
-					txtTitle->Text = sqlDR["CourseTitle"]->ToString();
-					globalCourseID = Convert::ToInt32(sqlDR["id"]);
+					txtCode->Text = sqlDR["course_code"]->ToString();
+					txtTitle->Text = sqlDR["course_name"]->ToString();
+					globalCourseID = Convert::ToInt32(sqlDR["course_id"]);
 					LoadData();
 				}
 				else {
@@ -467,7 +467,7 @@ namespace finalproject {
 				sqlConn->ConnectionString = ConnectionStr;
 				sqlConn->Open();
 				sqlCmd->Connection = sqlConn;
-				sqlCmd->CommandText = "SELECT * FROM courses WHERE CourseCode = @courseCode";
+				sqlCmd->CommandText = "SELECT * FROM course WHERE course_code = @courseCode";
 				sqlCmd->Parameters->Clear();
 				sqlCmd->Parameters->AddWithValue("@courseCode", courseCode);
 				sqlDR = sqlCmd->ExecuteReader();
@@ -480,16 +480,16 @@ namespace finalproject {
 				else {
 					sqlDR->Close();
 					sqlCmd->Parameters->Clear();
-					sqlCmd->CommandText = "SELECT id FROM programmes WHERE Programme = @programme";
+					sqlCmd->CommandText = "SELECT programme_id FROM programme WHERE prgm_name = @programme";
 					sqlCmd->Parameters->AddWithValue("@programme", programme);
 					sqlDR = sqlCmd->ExecuteReader();
 					int prgmID = 0;
 					if (sqlDR->Read()) {
-						prgmID = Convert::ToInt32(sqlDR["id"]);
+						prgmID = Convert::ToInt32(sqlDR["programme_id"]);
 					}
 					sqlDR->Close();
 					sqlCmd->Parameters->Clear();
-					sqlCmd->CommandText = "INSERT INTO courses(Programme, Level, Semester, CourseCode, CourseTitle, CourseCredit) VALUES (@programmeID, @level, @semester, @courseCode, @courseTitle, @courseCredit)";
+					sqlCmd->CommandText = "INSERT INTO course(programme_id, level, sem, course_code, course_name, credit) VALUES (@programmeID, @level, @semester, @courseCode, @courseTitle, @courseCredit)";
 					sqlCmd->Parameters->AddWithValue("@programmeID", prgmID);
 					sqlCmd->Parameters->AddWithValue("@level", level);
 					sqlCmd->Parameters->AddWithValue("@semester", semester);
@@ -535,16 +535,16 @@ namespace finalproject {
 				sqlConn->ConnectionString = ConnectionStr;
 				sqlConn->Open();
 				sqlCmd->Parameters->Clear();
-				sqlCmd->CommandText = "SELECT id FROM programmes WHERE Programme = @programme";
+				sqlCmd->CommandText = "SELECT programme_id FROM programme WHERE prgm_name = @programme";
 				sqlCmd->Parameters->AddWithValue("@programme", programme);
 				sqlDR = sqlCmd->ExecuteReader();
 				int prgmID = 0;
 				if (sqlDR->Read()) {
-					prgmID = Convert::ToInt32(sqlDR["id"]);
+					prgmID = Convert::ToInt32(sqlDR["programme_id"]);
 				}
 				sqlDR->Close();
 				sqlCmd->Parameters->Clear();
-				sqlCmd->CommandText = "UPDATE courses SET Programme = @prgmID, Level = @level, Semester = @semester, CourseCode = @courseCode, CourseTitle = @courseTitle, CourseCredit = @courseCredit WHERE id = @courseID";
+				sqlCmd->CommandText = "UPDATE course SET programme_id = @prgmID, level = @level, sem = @semester, course_code = @courseCode, course_name = @courseTitle, credit = @courseCredit WHERE course_id = @courseID";
 				sqlCmd->Parameters->AddWithValue("@courseID", globalCourseID);
 				sqlCmd->Parameters->AddWithValue("@prgmID", prgmID);
 				sqlCmd->Parameters->AddWithValue("@level", level);
@@ -586,7 +586,7 @@ namespace finalproject {
 				sqlConn->Open();
 				sqlCmd->Connection = sqlConn;
 				sqlCmd->Parameters->Clear();
-				sqlCmd->CommandText = "DELETE FROM courses WHERE id = @courseID";
+				sqlCmd->CommandText = "DELETE FROM course WHERE course_id = @courseID";
 				sqlCmd->Parameters->AddWithValue("@courseID", globalCourseID);
 				sqlCmd->ExecuteNonQuery();
 				MessageBox::Show("Course Deleted Successfully");
