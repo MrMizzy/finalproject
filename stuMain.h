@@ -8,6 +8,7 @@
 #include "frmRegFac.h"
 #include "frmRegStu.h"
 #include "frmGrades.h"
+#include "frmTranscript.h"
 namespace finalproject {
 
 	using namespace System;
@@ -50,6 +51,7 @@ namespace finalproject {
 	private: System::Windows::Forms::ToolStripMenuItem^ viewCourseToolStripMenuItem;
 	private: System::Windows::Forms::ToolStrip^ toolStrip1;
 	private: System::Windows::Forms::ToolStripLabel^ toolStripLabel1;
+	private: System::Windows::Forms::ToolStripMenuItem^ generateTranscriptToolStripMenuItem;
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -69,6 +71,7 @@ namespace finalproject {
 			this->viewCourseToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStrip1 = (gcnew System::Windows::Forms::ToolStrip());
 			this->toolStripLabel1 = (gcnew System::Windows::Forms::ToolStripLabel());
+			this->generateTranscriptToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->menuStrip1->SuspendLayout();
 			this->toolStrip1->SuspendLayout();
 			this->SuspendLayout();
@@ -79,40 +82,41 @@ namespace finalproject {
 			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->studentToolStripMenuItem });
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(698, 28);
+			this->menuStrip1->Padding = System::Windows::Forms::Padding(4, 2, 0, 2);
+			this->menuStrip1->Size = System::Drawing::Size(524, 24);
 			this->menuStrip1->TabIndex = 1;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
 			// studentToolStripMenuItem
 			// 
-			this->studentToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+			this->studentToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->registerToolStripMenuItem,
-					this->viewCourseToolStripMenuItem
+					this->viewCourseToolStripMenuItem, this->generateTranscriptToolStripMenuItem
 			});
 			this->studentToolStripMenuItem->Name = L"studentToolStripMenuItem";
-			this->studentToolStripMenuItem->Size = System::Drawing::Size(74, 24);
+			this->studentToolStripMenuItem->Size = System::Drawing::Size(60, 20);
 			this->studentToolStripMenuItem->Text = L"Student";
 			// 
 			// registerToolStripMenuItem
 			// 
 			this->registerToolStripMenuItem->Name = L"registerToolStripMenuItem";
-			this->registerToolStripMenuItem->Size = System::Drawing::Size(224, 26);
+			this->registerToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			this->registerToolStripMenuItem->Text = L"Register Course";
 			this->registerToolStripMenuItem->Click += gcnew System::EventHandler(this, &stuMain::registerToolStripMenuItem_Click);
 			// 
 			// viewCourseToolStripMenuItem
 			// 
 			this->viewCourseToolStripMenuItem->Name = L"viewCourseToolStripMenuItem";
-			this->viewCourseToolStripMenuItem->Size = System::Drawing::Size(224, 26);
+			this->viewCourseToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			this->viewCourseToolStripMenuItem->Text = L"View Grades";
 			// 
 			// toolStrip1
 			// 
 			this->toolStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
 			this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->toolStripLabel1 });
-			this->toolStrip1->Location = System::Drawing::Point(0, 28);
+			this->toolStrip1->Location = System::Drawing::Point(0, 24);
 			this->toolStrip1->Name = L"toolStrip1";
-			this->toolStrip1->Size = System::Drawing::Size(698, 25);
+			this->toolStrip1->Size = System::Drawing::Size(524, 25);
 			this->toolStrip1->TabIndex = 2;
 			this->toolStrip1->Text = L"toolStrip1";
 			// 
@@ -121,15 +125,23 @@ namespace finalproject {
 			this->toolStripLabel1->Name = L"toolStripLabel1";
 			this->toolStripLabel1->Size = System::Drawing::Size(0, 22);
 			// 
+			// generateTranscriptToolStripMenuItem
+			// 
+			this->generateTranscriptToolStripMenuItem->Name = L"generateTranscriptToolStripMenuItem";
+			this->generateTranscriptToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->generateTranscriptToolStripMenuItem->Text = L"Generate Transcript";
+			this->generateTranscriptToolStripMenuItem->Click += gcnew System::EventHandler(this, &stuMain::generateTranscriptToolStripMenuItem_Click);
+			// 
 			// stuMain
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(698, 511);
+			this->ClientSize = System::Drawing::Size(524, 415);
 			this->Controls->Add(this->toolStrip1);
 			this->Controls->Add(this->menuStrip1);
 			this->IsMdiContainer = true;
 			this->MainMenuStrip = this->menuStrip1;
+			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->Name = L"stuMain";
 			this->Text = L"Ashesi Academic Record Management System";
 			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
@@ -161,5 +173,9 @@ namespace finalproject {
 			return;
 		}
 	}
-	};
+	private: System::Void generateTranscriptToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+		finalproject::frmTranscript frmTran;
+		frmTran.ShowDialog();
+	}
+};
 }

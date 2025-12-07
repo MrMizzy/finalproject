@@ -57,6 +57,9 @@
     <ClCompile Include="frmAssign.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="frmTranscript.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="newfrmLogin.h">
@@ -99,6 +102,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="frmAssign.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="frmTranscript.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

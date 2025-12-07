@@ -123,6 +123,7 @@
     <ClCompile Include="frmProgrammes.cpp" />
     <ClCompile Include="frmRegFac.cpp" />
     <ClCompile Include="frmRegStu.cpp" />
+    <ClCompile Include="frmTranscript.cpp" />
     <ClCompile Include="mainProgram.cpp" />
     <ClCompile Include="newfrmLogin.cpp" />
     <ClCompile Include="newfrmRegister.cpp" />
@@ -167,6 +168,9 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="frmRegStu.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="frmTranscript.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="newfrmLogin.h">
